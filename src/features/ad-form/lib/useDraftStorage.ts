@@ -4,7 +4,7 @@ const DRAFT_PREFIX = 'avito_draft_';
 
 export function useDraftStorage<T>(
   adId: number,
-  currentData: T | null,
+  _currentData: T | null,
   onRestore: (data: T) => void,
 ) {
   const key = `${DRAFT_PREFIX}${adId}`;

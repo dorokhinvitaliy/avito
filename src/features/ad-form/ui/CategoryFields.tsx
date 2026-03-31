@@ -1,4 +1,4 @@
-import type { ItemCategory, ItemParams } from '../../../entities/ad';
+import type { ItemCategory, ItemParams, AutoItemParams, RealEstateItemParams, ElectronicsItemParams } from '../../../entities/ad';
 import { EXPECTED_PARAMS } from '../../../entities/ad';
 import { AutoFields } from './AutoFields';
 import { RealEstateFields } from './RealEstateFields';
@@ -19,11 +19,11 @@ export function CategoryFields({ category, params, onChange }: CategoryFieldsPro
 
   switch (category) {
     case 'auto':
-      return <AutoFields params={params} onChange={onChange} missingKeys={missingKeys} />;
+      return <AutoFields params={params as AutoItemParams} onChange={onChange} missingKeys={missingKeys} />;
     case 'real_estate':
-      return <RealEstateFields params={params} onChange={onChange} missingKeys={missingKeys} />;
+      return <RealEstateFields params={params as RealEstateItemParams} onChange={onChange} missingKeys={missingKeys} />;
     case 'electronics':
-      return <ElectronicsFields params={params} onChange={onChange} missingKeys={missingKeys} />;
+      return <ElectronicsFields params={params as ElectronicsItemParams} onChange={onChange} missingKeys={missingKeys} />;
     default:
       return null;
   }

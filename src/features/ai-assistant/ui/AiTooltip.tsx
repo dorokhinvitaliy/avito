@@ -1,4 +1,3 @@
-import { type ReactNode } from 'react';
 import { Button } from '../../../shared/ui/Button';
 import styles from './AiTooltip.module.css';
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { OLLAMA_BASE_URL, OLLAMA_MODEL } from '../../../shared/config/constants';
-import type { Item, ItemCategory, ItemParams } from '../../../entities/ad';
+import type { ItemCategory, ItemParams } from '../../../entities/ad';
 import { CATEGORY_LABELS, translateParamValue, PARAM_LABELS_BY_CATEGORY } from '../../../entities/ad';
 
 function buildItemContext(
