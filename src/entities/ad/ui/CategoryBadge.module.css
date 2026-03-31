@@ -1,0 +1,28 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  border: 1px solid transparent;
+  line-height: 1.4;
+}
+
+.auto {
+  background-color: var(--color-badge-auto);
+  color: var(--color-badge-auto-text);
+  border-color: #bfdbfe;
+}
+
+.real_estate {
+  background-color: var(--color-badge-real-estate);
+  color: var(--color-badge-real-estate-text);
+  border-color: #fde68a;
+}
+
+.electronics {
+  background-color: var(--color-badge-electronics);
+  color: var(--color-badge-electronics-text);
+  border-color: #ddd6fe;
+}

@@ -1,0 +1,37 @@
+import { useNavigate } from 'react-router-dom';
+import type { ItemListItem } from '../model/types';
+import { formatPrice } from '../lib/formatters';
+import { CategoryBadge } from './CategoryBadge';
+import { RevisionBadge } from './RevisionBadge';
+import { ImagePlaceholder } from './ImagePlaceholder';
+import styles from './AdCard.module.css';
+
+interface AdCardProps {
+  item: ItemListItem;
+}
+
+export function AdCard({ item }: AdCardProps) {
+  const navigate = useNavigate();
+
+  return (
+    <article
+      className={styles.card}
+      onClick={() => navigate(`/ads/${item.id}`)}
+      role="link"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === 'Enter' && navigate(`/ads/${item.id}`)}
+    >
+      <div className={styles.imageWrapper}>
+        <ImagePlaceholder />
+      </div>
+      <div className={styles.body}>
+        <CategoryBadge category={item.category} />
+        <h3 className={styles.title} title={item.title}>
+          {item.title}
+        </h3>
+        <span className={styles.price}>{formatPrice(item.price)}</span>
+        {item.needsRevision && <RevisionBadge />}
+      </div>
+    </article>
+  );
+}
