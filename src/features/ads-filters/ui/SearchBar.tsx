@@ -1,4 +1,5 @@
 import { useFiltersStore } from '../model/useFiltersStore';
+import { Search } from 'lucide-react';
 import styles from './SearchBar.module.css';
 
 export function SearchBar() {
@@ -14,7 +15,9 @@ export function SearchBar() {
         onChange={(e) => setSearchQuery(e.target.value)}
         id="search-input"
       />
-      <span className={styles.icon}>🔍</span>
+      <span className={styles.icon}>
+        <Search size={16} />
+      </span>
     </div>
   );
 }

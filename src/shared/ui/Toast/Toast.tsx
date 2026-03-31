@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
+import { CheckCircle, XCircle, X } from 'lucide-react';
 import styles from './Toast.module.css';
 
 type ToastType = 'success' | 'error';
@@ -54,14 +55,14 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             className={`${styles.toast} ${styles[toast.type]} ${toast.exiting ? styles.exiting : ''}`}
           >
             <span className={styles.icon}>
-              {toast.type === 'success' ? '✅' : '❌'}
+              {toast.type === 'success' ? <CheckCircle size={18} /> : <XCircle size={18} />}
             </span>
             <div className={styles.content}>
               <div className={styles.title}>{toast.title}</div>
               {toast.message && <div className={styles.message}>{toast.message}</div>}
             </div>
             <button className={styles.close} onClick={() => removeToast(toast.id)}>
-              ✕
+              <X size={16} />
             </button>
           </div>
         ))}

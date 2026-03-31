@@ -1,4 +1,5 @@
 import { type InputHTMLAttributes, type ReactNode, forwardRef } from 'react';
+import { X } from 'lucide-react';
 import styles from './Input.module.css';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -33,7 +34,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           <input ref={ref} className={styles.input} {...rest} />
           {onClear && rest.value && (
             <button type="button" className={styles.clearButton} onClick={onClear} aria-label="Очистить">
-              ✕
+              <X size={14} />
             </button>
           )}
           {suffix}

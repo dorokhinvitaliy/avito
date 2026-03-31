@@ -12,6 +12,7 @@ import {
 import { Button } from '../../shared/ui/Button';
 import { Skeleton } from '../../shared/ui/Skeleton';
 import { ErrorBlock } from '../../shared/ui/ErrorBlock';
+import { Pencil, TriangleAlert } from 'lucide-react';
 import styles from './AdViewPage.module.css';
 
 export function AdViewPage() {
@@ -80,7 +81,7 @@ export function AdViewPage() {
             <Button
               variant="primary"
               onClick={() => navigate(`/ads/${item.id}/edit`)}
-              icon={<span>✏️</span>}
+              icon={<Pencil size={16} />}
             >
               Редактировать
             </Button>
@@ -108,7 +109,9 @@ export function AdViewPage() {
         <div className={styles.infoSection}>
           {missingFields.length > 0 && (
             <div className={styles.warningBlock}>
-              <span className={styles.warningIcon}>⚠️</span>
+              <span className={styles.warningIcon}>
+                <TriangleAlert size={20} />
+              </span>
               <div className={styles.warningContent}>
                 <h3>Требуются доработки</h3>
                 <p>У объявления не заполнены поля:</p>

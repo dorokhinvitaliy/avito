@@ -14,6 +14,7 @@ import { SkeletonCard, Skeleton } from '../../shared/ui/Skeleton';
 import { ErrorBlock } from '../../shared/ui/ErrorBlock';
 import { useDebounce } from '../../shared/lib/hooks/useDebounce';
 import { ITEMS_PER_PAGE } from '../../shared/config/constants';
+import { ClipboardList } from 'lucide-react';
 import styles from './AdsListPage.module.css';
 
 export function AdsListPage() {
@@ -101,7 +102,9 @@ export function AdsListPage() {
 
           {!isLoading && !isError && sortedItems.length === 0 && (
             <div className={styles.emptyState}>
-              <span className={styles.emptyIcon}>📋</span>
+              <span className={styles.emptyIcon}>
+                <ClipboardList size={48} />
+              </span>
               <h2 className={styles.emptyTitle}>Ничего не найдено</h2>
               <p className={styles.emptyText}>
                 Попробуйте изменить параметры поиска или сбросить фильтры

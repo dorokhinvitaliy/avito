@@ -19,6 +19,7 @@ import { Skeleton } from '../../shared/ui/Skeleton';
 import { ErrorBlock } from '../../shared/ui/ErrorBlock';
 import { useToast } from '../../shared/ui/Toast';
 import { DESCRIPTION_MAX_LENGTH } from '../../shared/config/constants';
+import { Save } from 'lucide-react';
 import styles from './AdEditPage.module.css';
 
 const CATEGORY_OPTIONS = Object.entries(CATEGORY_LABELS).map(([value, label]) => ({
@@ -188,7 +189,7 @@ export function AdEditPage() {
 
       {hasDraftRestored && (
         <div className={styles.draftNotice}>
-          💾 Восстановлен черновик. Изменения будут сохраняться автоматически.
+          <Save size={16} style={{ marginBottom: '-2px' }} /> Восстановлен черновик. Изменения будут сохраняться автоматически.
         </div>
       )}
 

@@ -1,5 +1,6 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { Button } from '../../../shared/ui/Button';
+import { Sparkles, RefreshCw } from 'lucide-react';
 import { AiTooltip } from './AiTooltip';
 import { suggestMarketPrice } from '../api/ollamaApi';
 import type { ItemCategory, ItemParams } from '../../../entities/ad';
@@ -17,30 +18,53 @@ export function AiPriceButton({ title, category, params, onApply }: AiPriceButto
   const [state, setState] = useState<AiState>('idle');
   const [result, setResult] = useState('');
   const [showTooltip, setShowTooltip] = useState(false);
+  const abortControllerRef = useRef<AbortController | null>(null);
+
+  useEffect(() => {
+    return () => {
+      abortControllerRef.current?.abort();
+    };
+  }, []);
 
   const handleClick = useCallback(async () => {
     setState('loading');
     setShowTooltip(false);
 
+    abortControllerRef.current?.abort();
+    const abortController = new AbortController();
+    abortControllerRef.current = abortController;
+
     try {
-      const text = await suggestMarketPrice(title, category, params);
+      const text = await suggestMarketPrice(title, category, params, abortController.signal);
       setResult(text);
       setState('done');
       setShowTooltip(true);
-    } catch {
+    } catch (err: any) {
+      if (err.name === 'AbortError' || err.code === 'ERR_CANCELED') {
+        return;
+      }
       setState('error');
       setShowTooltip(true);
     }
   }, [title, category, params]);
 
   const handleApply = () => {
-    // Try to parse a number from the AI response
-    const numbers = result.match(/[\d\s]+/g);
-    if (numbers) {
-      const cleaned = numbers[0].replace(/\s/g, '');
-      const parsed = parseInt(cleaned, 10);
-      if (!isNaN(parsed) && parsed > 0) {
-        onApply(parsed);
+    // Убираем пробелы между цифрами (например "15 000" -> "15000")
+    const textWithoutSpacedNumbers = result.replace(/(\d)\s+(?=\d)/g, '$1');
+    const numbers = textWithoutSpacedNumbers.match(/\d+/g);
+    
+    if (numbers && numbers.length > 0) {
+      // Ищем первое число, которое больше 2050 (чтобы пропустить года типа 2020), 
+      // либо берем просто первое найденное число
+      const parsedNumbers = numbers.map(n => parseInt(n, 10));
+      let priceToApply = parsedNumbers.find(n => n > 2050 && n <= 1000000000);
+      
+      if (!priceToApply) {
+        priceToApply = parsedNumbers[0];
+      }
+
+      if (priceToApply && priceToApply > 0) {
+        onApply(priceToApply);
       }
     }
     setShowTooltip(false);
@@ -58,8 +82,8 @@ export function AiPriceButton({ title, category, params, onApply }: AiPriceButto
   };
 
   const getButtonIcon = () => {
-    if (state === 'done' || state === 'error') return '🔄';
-    return '💡';
+    if (state === 'done' || state === 'error') return <RefreshCw size={16} />;
+    return <Sparkles size={16} />;
   };
 
   return (
@@ -68,7 +92,7 @@ export function AiPriceButton({ title, category, params, onApply }: AiPriceButto
         variant="ai"
         onClick={handleClick}
         isLoading={state === 'loading'}
-        icon={<span>{getButtonIcon()}</span>}
+        icon={getButtonIcon()}
       >
         {getButtonLabel()}
       </Button>

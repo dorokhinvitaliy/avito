@@ -1,5 +1,6 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { Button } from '../../../shared/ui/Button';
+import { Sparkles, RefreshCw } from 'lucide-react';
 import { AiTooltip } from './AiTooltip';
 import { generateDescription } from '../api/ollamaApi';
 import type { ItemCategory, ItemParams } from '../../../entities/ad';
@@ -26,6 +27,13 @@ export function AiDescriptionButton({
   const [state, setState] = useState<AiState>('idle');
   const [result, setResult] = useState('');
   const [showTooltip, setShowTooltip] = useState(false);
+  const abortControllerRef = useRef<AbortController | null>(null);
+
+  useEffect(() => {
+    return () => {
+      abortControllerRef.current?.abort();
+    };
+  }, []);
 
   const hasDescription = Boolean(currentDescription?.trim());
 
@@ -33,12 +41,26 @@ export function AiDescriptionButton({
     setState('loading');
     setShowTooltip(false);
 
+    abortControllerRef.current?.abort();
+    const abortController = new AbortController();
+    abortControllerRef.current = abortController;
+
     try {
-      const text = await generateDescription(title, category, price, params, currentDescription);
+      const text = await generateDescription(
+        title, 
+        category, 
+        price, 
+        params, 
+        currentDescription,
+        abortController.signal
+      );
       setResult(text);
       setState('done');
       setShowTooltip(true);
-    } catch {
+    } catch (err: any) {
+      if (err.name === 'AbortError' || err.code === 'ERR_CANCELED') {
+        return;
+      }
       setState('error');
       setShowTooltip(true);
     }
@@ -61,8 +83,8 @@ export function AiDescriptionButton({
   };
 
   const getButtonIcon = () => {
-    if (state === 'done' || state === 'error') return '🔄';
-    return '💡';
+    if (state === 'done' || state === 'error') return <RefreshCw size={16} />;
+    return <Sparkles size={16} />;
   };
 
   return (
@@ -71,7 +93,7 @@ export function AiDescriptionButton({
         variant="ai"
         onClick={handleClick}
         isLoading={state === 'loading'}
-        icon={<span>{getButtonIcon()}</span>}
+        icon={getButtonIcon()}
       >
         {getButtonLabel()}
       </Button>

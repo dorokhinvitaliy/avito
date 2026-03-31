@@ -1,4 +1,5 @@
 import { Button } from '../Button';
+import { TriangleAlert } from 'lucide-react';
 import styles from './ErrorBlock.module.css';
 
 interface ErrorBlockProps {
@@ -14,7 +15,9 @@ export function ErrorBlock({
 }: ErrorBlockProps) {
   return (
     <div className={styles.errorBlock}>
-      <span className={styles.icon}>⚠️</span>
+      <span className={styles.icon}>
+        <TriangleAlert size={40} />
+      </span>
       <h2 className={styles.title}>{title}</h2>
       <p className={styles.message}>{message}</p>
       {onRetry && (

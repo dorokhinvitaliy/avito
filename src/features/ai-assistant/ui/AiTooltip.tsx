@@ -1,4 +1,5 @@
 import { Button } from '../../../shared/ui/Button';
+import ReactMarkdown from 'react-markdown';
 import styles from './AiTooltip.module.css';
 
 interface AiTooltipProps {
@@ -18,7 +19,7 @@ export function AiTooltip({ content, isError, onApply, onClose, applyLabel = 'П
       <div className={`${styles.content} ${isError ? styles.errorContent : ''}`}>
         {isError
           ? 'Попробуйте повторить запрос или закройте уведомление'
-          : content}
+          : <ReactMarkdown>{content}</ReactMarkdown>}
       </div>
       <div className={styles.actions}>
         {onApply && !isError && (
