@@ -1,0 +1,105 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-base);
+  line-height: 1;
+  border-radius: var(--radius-md);
+  padding: 10px 20px;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Variants */
+.primary {
+  background-color: var(--color-accent-blue);
+  color: var(--color-text-inverse);
+}
+
+.primary:hover:not(:disabled) {
+  background-color: var(--color-accent-blue-hover);
+}
+
+.primary:active:not(:disabled) {
+  background-color: var(--color-accent-blue-active);
+}
+
+.secondary {
+  background-color: #e5e7eb;
+  color: var(--color-text-primary);
+}
+
+.secondary:hover:not(:disabled) {
+  background-color: #d1d5db;
+}
+
+.ghost {
+  background-color: transparent;
+  color: var(--color-text-secondary);
+}
+
+.ghost:hover:not(:disabled) {
+  background-color: var(--color-bg-hover);
+}
+
+.danger {
+  background-color: var(--color-accent-red);
+  color: var(--color-text-inverse);
+}
+
+.danger:hover:not(:disabled) {
+  background-color: #dc2626;
+}
+
+.ai {
+  background-color: transparent;
+  color: var(--color-accent-orange);
+  padding: 6px 12px;
+  font-size: var(--font-size-sm);
+  border: 1px solid var(--color-accent-orange-light);
+  border-radius: var(--radius-full);
+}
+
+.ai:hover:not(:disabled) {
+  background-color: var(--color-accent-orange-light);
+}
+
+/* Sizes */
+.sm {
+  font-size: var(--font-size-sm);
+  padding: 6px 12px;
+}
+
+.lg {
+  font-size: var(--font-size-md);
+  padding: 12px 24px;
+}
+
+/* Loading */
+.loading {
+  position: relative;
+  color: transparent !important;
+}
+
+.spinner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  color: var(--color-text-inverse);
+}
+
+.ai .spinner {
+  color: var(--color-accent-orange);
+}
