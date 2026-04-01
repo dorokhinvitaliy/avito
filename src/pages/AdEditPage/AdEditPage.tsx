@@ -58,15 +58,15 @@ export function AdEditPage() {
     setHasDraftRestored(true);
   }, []);
 
-  const { saveDraft, clearDraft } = useDraftStorage<FormState>(
+  const { saveDraft, clearDraft, hasDraft } = useDraftStorage<FormState>(
     numericId,
     form,
     handleDraftRestore,
   );
 
-  // Initialize form from fetched data (only if no draft was restored)
+  // Initialize form from fetched data (only if no draft was restored and no draft exists)
   useEffect(() => {
-    if (item && !form && !hasDraftRestored) {
+    if (item && !form && !hasDraftRestored && !hasDraft()) {
       setForm({
         category: item.category,
         title: item.title,
@@ -181,6 +181,25 @@ export function AdEditPage() {
 
   const isFormValid = form.title.trim() !== '' && form.price !== '' && Number(form.price) >= 0;
 
+  const isModified = (field: keyof FormState) => {
+    if (!item) return false;
+    if (field === 'price') return Number(form.price) !== Number(item.price);
+    if (field === 'description') return form.description !== (item.description ?? '');
+    if (field === 'title') return form.title !== item.title;
+    if (field === 'category') return form.category !== item.category;
+    return false;
+  };
+
+  const renderLabel = (text: string, modified: boolean) => {
+    if (!modified) return text;
+    return (
+      <span className={styles.modifiedLabelWrapper}>
+        {text}
+        <span className={styles.modifiedBadge}>изменено в черновике</span>
+      </span>
+    );
+  };
+
   return (
     <div className={styles.page}>
       <Link to={`/ads/${numericId}`} className={styles.backLink}>
@@ -200,7 +219,7 @@ export function AdEditPage() {
         <div className={styles.formSection}>
           <div className={styles.categorySelect}>
             <Select
-              label="Категория"
+              label={renderLabel("Категория", isModified('category'))}
               value={form.category}
               onChange={(e) => {
                 updateField('category', e.target.value as ItemCategory);
@@ -215,7 +234,7 @@ export function AdEditPage() {
         <div className={styles.formSection}>
           <div className={styles.fieldMain}>
             <Input
-              label="Название"
+              label={renderLabel("Название", isModified('title'))}
               required
               value={form.title}
               onChange={(e) => updateField('title', e.target.value)}
@@ -232,7 +251,7 @@ export function AdEditPage() {
           <div className={styles.fieldRow}>
             <div className={styles.fieldMain}>
               <Input
-                label="Цена"
+                label={renderLabel("Цена", isModified('price'))}
                 required
                 type="number"
                 value={form.price}
@@ -260,6 +279,7 @@ export function AdEditPage() {
             <CategoryFields
               category={form.category}
               params={form.params}
+              originalParams={item.params}
               onChange={(params) => updateField('params', params)}
             />
           </div>
@@ -267,7 +287,7 @@ export function AdEditPage() {
 
         {/* Description */}
         <div className={styles.formSection}>
-          <h2 className={styles.sectionTitle}>Описание</h2>
+          <h2 className={styles.sectionTitle}>{renderLabel("Описание", isModified('description'))}</h2>
           <div className={styles.descriptionWrapper}>
             <Textarea
               value={form.description}

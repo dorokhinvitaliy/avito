@@ -15,6 +15,7 @@ import { ErrorBlock } from '../../shared/ui/ErrorBlock';
 import { useDebounce } from '../../shared/lib/hooks/useDebounce';
 import { ITEMS_PER_PAGE } from '../../shared/config/constants';
 import { ClipboardList } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 import styles from './AdsListPage.module.css';
 
 export function AdsListPage() {
@@ -114,15 +115,17 @@ export function AdsListPage() {
 
           {!isLoading && !isError && sortedItems.length > 0 && (
             <>
-              <div className={layout === 'grid' ? styles.grid : styles.list}>
-                {sortedItems.map((item) =>
-                  layout === 'grid' ? (
-                    <AdCard key={item.id} item={item} />
-                  ) : (
-                    <AdListItem key={item.id} item={item} />
-                  ),
-                )}
-              </div>
+              <AnimatePresence>
+                <motion.div layout className={layout === 'grid' ? styles.grid : styles.list}>
+                  {sortedItems.map((item) =>
+                    layout === 'grid' ? (
+                      <AdCard key={item.id} item={item} />
+                    ) : (
+                      <AdListItem key={item.id} item={item} />
+                    ),
+                  )}
+                </motion.div>
+              </AnimatePresence>
               <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
             </>
           )}

@@ -6,15 +6,18 @@
   border: 1px solid var(--color-border);
   overflow: hidden;
   cursor: pointer;
-  transition: all var(--transition-base);
-  animation: fadeIn var(--transition-slow) ease;
+  /* transition: all var(--transition-base); */
 }
 
 .card:hover {
   box-shadow: var(--shadow-md);
   border-color: var(--color-border-hover);
-  transform: translateY(-2px);
+  transform: translateY(-4px) scale(1.02);
 }
+
+/* .card:active {
+  transform: scale(0.98);
+} */
 
 .imageWrapper {
   width: 100%;

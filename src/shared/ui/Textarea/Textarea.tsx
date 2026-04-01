@@ -1,8 +1,8 @@
-import { type TextareaHTMLAttributes, forwardRef } from 'react';
+import { type TextareaHTMLAttributes, type ReactNode, forwardRef } from 'react';
 import styles from './Textarea.module.css';
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  label?: string;
+  label?: ReactNode;
   currentLength?: number;
   maxLength?: number;
 }

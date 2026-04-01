@@ -4,7 +4,14 @@ import { formatPrice } from '../lib/formatters';
 import { CATEGORY_LABELS } from '../lib/categoryLabels';
 import { RevisionBadge } from './RevisionBadge';
 import { ImagePlaceholder } from './ImagePlaceholder';
+import { motion, type Variants } from 'framer-motion';
 import styles from './AdListItem.module.css';
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1 },
+  exit: { opacity: 0 },
+};
 
 interface AdListItemProps {
   item: ItemListItem;
@@ -14,7 +21,12 @@ export function AdListItem({ item }: AdListItemProps) {
   const navigate = useNavigate();
 
   return (
-    <article
+    <motion.article
+      key={item.id}
+      layout
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       className={styles.listItem}
       onClick={() => navigate(`/ads/${item.id}`)}
       role="link"
@@ -30,6 +42,6 @@ export function AdListItem({ item }: AdListItemProps) {
         <span className={styles.price}>{formatPrice(item.price)}</span>
         {item.needsRevision && <RevisionBadge />}
       </div>
-    </article>
+    </motion.article>
   );
 }

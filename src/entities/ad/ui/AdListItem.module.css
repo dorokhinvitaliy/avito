@@ -7,8 +7,6 @@
   border-radius: var(--radius-lg);
   border: 1px solid var(--color-border);
   cursor: pointer;
-  transition: all var(--transition-base);
-  animation: fadeIn var(--transition-slow) ease;
 }
 
 .listItem:hover {

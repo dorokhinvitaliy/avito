@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { Button } from '../../../shared/ui/Button';
-import { Sparkles, RefreshCw } from 'lucide-react';
+import { Sparkles, RefreshCw, Loader2 } from 'lucide-react';
 import { AiTooltip } from './AiTooltip';
 import { suggestMarketPrice } from '../api/ollamaApi';
 import type { ItemCategory, ItemParams } from '../../../entities/ad';
@@ -82,6 +82,7 @@ export function AiPriceButton({ title, category, params, onApply }: AiPriceButto
   };
 
   const getButtonIcon = () => {
+    if (state === 'loading') return <Loader2 size={16} style={{ animation: 'spin 1.5s linear infinite' }} />;
     if (state === 'done' || state === 'error') return <RefreshCw size={16} />;
     return <Sparkles size={16} />;
   };
@@ -91,7 +92,7 @@ export function AiPriceButton({ title, category, params, onApply }: AiPriceButto
       <Button
         variant="ai"
         onClick={handleClick}
-        isLoading={state === 'loading'}
+        disabled={state === 'loading'}
         icon={getButtonIcon()}
       >
         {getButtonLabel()}

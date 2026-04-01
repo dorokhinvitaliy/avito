@@ -3,7 +3,7 @@ import { X } from 'lucide-react';
 import styles from './Input.module.css';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
+  label?: ReactNode;
   error?: string;
   required?: boolean;
   warning?: boolean;
