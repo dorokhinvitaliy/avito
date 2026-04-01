@@ -35,3 +35,16 @@ export function SkeletonCard() {
     </div>
   );
 }
+
+export function SkeletonListItem() {
+  return (
+    <div className={styles.listItem}>
+      <Skeleton className={styles.listImage} />
+      <div className={styles.listContent}>
+        <Skeleton className={styles.text} width="20%" height="12px" />
+        <Skeleton className={styles.textLg} width="60%" />
+        <Skeleton className={styles.text} width="30%" />
+      </div>
+    </div>
+  );
+}

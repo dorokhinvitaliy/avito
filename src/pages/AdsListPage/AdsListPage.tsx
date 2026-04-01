@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { AdCard, AdListItem, fetchItems } from '../../entities/ad';
 import type { ItemsQueryParams } from '../../entities/ad';
@@ -10,12 +11,11 @@ import {
   SORT_OPTIONS,
 } from '../../features/ads-filters';
 import { Pagination } from '../../shared/ui/Pagination';
-import { SkeletonCard, Skeleton } from '../../shared/ui/Skeleton';
+import { SkeletonCard, SkeletonListItem } from '../../shared/ui/Skeleton';
 import { ErrorBlock } from '../../shared/ui/ErrorBlock';
 import { useDebounce } from '../../shared/lib/hooks/useDebounce';
 import { ITEMS_PER_PAGE } from '../../shared/config/constants';
 import { ClipboardList } from 'lucide-react';
-import { AnimatePresence, motion } from 'framer-motion';
 import styles from './AdsListPage.module.css';
 
 export function AdsListPage() {
@@ -43,7 +43,7 @@ export function AdsListPage() {
     sortDirection: isClientSort ? undefined : currentSort.direction,
   };
 
-  const { data, isLoading, isError, refetch } = useQuery({
+  const { data, isFetching, isError, refetch } = useQuery({
     queryKey: ['items', queryParams],
     queryFn: ({ signal }) => fetchItems(queryParams, signal),
     placeholderData: (prev) => prev,
@@ -61,6 +61,19 @@ export function AdsListPage() {
   })();
 
   const totalPages = Math.ceil((data?.total ?? 0) / ITEMS_PER_PAGE);
+
+  const prevPageRef = useRef(page);
+
+  useEffect(() => {
+    if (!isFetching && page !== prevPageRef.current) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      prevPageRef.current = page;
+    }
+    // Update ref even if it was a filter change that kept the same page
+    if (!isFetching) {
+      prevPageRef.current = page;
+    }
+  }, [isFetching, page]);
 
   return (
     <div className={styles.page}>
@@ -82,18 +95,13 @@ export function AdsListPage() {
         <FiltersPanel />
 
         <div className={styles.main}>
-          {isLoading && (
+          {isFetching && (
             <div className={layout === 'grid' ? styles.skeletonGrid : styles.skeletonList}>
               {Array.from({ length: ITEMS_PER_PAGE }).map((_, i) =>
                 layout === 'grid' ? (
                   <SkeletonCard key={i} />
                 ) : (
-                  <Skeleton
-                    key={i}
-                    height={100}
-                    width="100%"
-                    borderRadius="var(--radius-lg)"
-                  />
+                  <SkeletonListItem key={i} />
                 ),
               )}
             </div>
@@ -101,7 +109,7 @@ export function AdsListPage() {
 
           {isError && <ErrorBlock onRetry={() => refetch()} />}
 
-          {!isLoading && !isError && sortedItems.length === 0 && (
+          {!isFetching && !isError && sortedItems.length === 0 && (
             <div className={styles.emptyState}>
               <span className={styles.emptyIcon}>
                 <ClipboardList size={48} />
@@ -113,21 +121,20 @@ export function AdsListPage() {
             </div>
           )}
 
-          {!isLoading && !isError && sortedItems.length > 0 && (
-            <>
-              <AnimatePresence>
-                <motion.div layout className={layout === 'grid' ? styles.grid : styles.list}>
-                  {sortedItems.map((item) =>
-                    layout === 'grid' ? (
-                      <AdCard key={item.id} item={item} />
-                    ) : (
-                      <AdListItem key={item.id} item={item} />
-                    ),
-                  )}
-                </motion.div>
-              </AnimatePresence>
-              <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
-            </>
+          {!isFetching && !isError && sortedItems.length > 0 && (
+            <div className={layout === 'grid' ? styles.grid : styles.list}>
+              {sortedItems.map((item) =>
+                layout === 'grid' ? (
+                  <AdCard key={item.id} item={item} />
+                ) : (
+                  <AdListItem key={item.id} item={item} />
+                ),
+              )}
+            </div>
+          )}
+
+          {!isError && totalPages > 0 && (
+            <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
           )}
         </div>
       </div>
