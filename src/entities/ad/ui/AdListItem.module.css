@@ -14,11 +14,25 @@
 }
 
 .imageWrapper {
+  position: relative;
   width: 300px;
   height: 200px;
   flex-shrink: 0;
   border-radius: var(--radius-xl) 0 0 var(--radius-xl);
   overflow: hidden;
+}
+
+.review {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background-color: #f59e0b;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 21px;
+  font-size: 10px;
+  font-weight: 600;
+  z-index: 4;
 }
 
 .content {

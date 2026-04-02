@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import type { ItemListItem } from '../model/types';
 import { formatPrice } from '../lib/formatters';
 import { CATEGORY_LABELS } from '../lib/categoryLabels';
-import { RevisionBadge } from './RevisionBadge';
 import { ItemImage } from './ItemImage';
 import { motion } from 'framer-motion';
 import styles from './AdListItem.module.css';
@@ -27,13 +26,13 @@ export function AdListItem({ item }: AdListItemProps) {
       onKeyDown={(e) => e.key === 'Enter' && navigate(`/ads/${item.id}`)}
     >
       <div className={styles.imageWrapper}>
-        <ItemImage id={item.id} category={item.category} size="thumbnail" />
+        <ItemImage id={item.id} category={item.category} size="card" />
+        {item.needsRevision && <div className={styles.review}>Доработать</div>}
       </div>
       <div className={styles.content}>
         <span className={styles.category}>{CATEGORY_LABELS[item.category]}</span>
         <h3 className={styles.title}>{item.title}</h3>
         <span className={styles.price}>{formatPrice(item.price)}</span>
-        {item.needsRevision && <RevisionBadge />}
       </div>
     </motion.article>
   );
