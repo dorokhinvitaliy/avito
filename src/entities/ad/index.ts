@@ -3,6 +3,9 @@ export { AdListItem } from './ui/AdListItem';
 export { CategoryBadge } from './ui/CategoryBadge';
 export { RevisionBadge } from './ui/RevisionBadge';
 export { ImagePlaceholder } from './ui/ImagePlaceholder';
+export { ItemImage } from './ui/ItemImage';
+export { ImageSlider } from './ui/ImageSlider';
+export { getItemImageUrls, getItemCoverUrl, getPhotoCount } from './lib/itemImages';
 export { fetchItems, fetchItem, updateItem } from './api/adsApi';
 export { formatPrice, formatDate, formatDateShort } from './lib/formatters';
 export {

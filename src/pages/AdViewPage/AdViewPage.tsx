@@ -7,7 +7,7 @@ import {
   PARAM_LABELS_BY_CATEGORY,
   translateParamValue,
   getMissingFields,
-  ImagePlaceholder,
+  ImageSlider,
 } from '../../entities/ad';
 import { Button } from '../../shared/ui/Button';
 import { Skeleton } from '../../shared/ui/Skeleton';
@@ -103,7 +103,7 @@ export function AdViewPage() {
 
       <div className={styles.mainContent}>
         <div className={styles.imageSection}>
-          <ImagePlaceholder size="large" />
+          <ImageSlider id={item.id} category={item.category} />
         </div>
 
         <div className={styles.infoSection}>

@@ -75,10 +75,6 @@
 
 .imageSection {
   flex: 0 0 420px;
-  min-height: 320px;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  background-color: #f3f4f6;
 }
 
 .infoSection {

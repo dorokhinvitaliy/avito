@@ -3,15 +3,9 @@ import type { ItemListItem } from '../model/types';
 import { formatPrice } from '../lib/formatters';
 import { CategoryBadge } from './CategoryBadge';
 import { RevisionBadge } from './RevisionBadge';
-import { ImagePlaceholder } from './ImagePlaceholder';
-import { motion, type Variants } from 'framer-motion';
+import { ItemImage } from './ItemImage';
+import { motion } from 'framer-motion';
 import styles from './AdCard.module.css';
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1 },
-  exit: { opacity: 0 },
-};
 
 interface AdCardProps {
   item: ItemListItem;
@@ -33,7 +27,7 @@ export function AdCard({ item }: AdCardProps) {
       onKeyDown={(e) => e.key === 'Enter' && navigate(`/ads/${item.id}`)}
     >
       <div className={styles.imageWrapper}>
-        <ImagePlaceholder />
+        <ItemImage id={item.id} category={item.category} />
       </div>
       <div className={styles.body}>
         <CategoryBadge category={item.category} />
