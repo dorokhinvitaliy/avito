@@ -8,6 +8,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
   isLoading?: boolean;
+  fullWidth?: boolean;
   icon?: ReactNode;
 }
 
@@ -15,6 +16,7 @@ export function Button({
   variant = 'primary',
   size = 'md',
   isLoading = false,
+  fullWidth = false,
   icon,
   children,
   className = '',
@@ -26,6 +28,7 @@ export function Button({
     styles[variant],
     size !== 'md' && styles[size],
     isLoading && styles.loading,
+    fullWidth && styles.fullWidth,
     className,
   ]
     .filter(Boolean)

@@ -6,12 +6,12 @@
 
 .input {
   width: 100%;
-  padding: 12px 44px 12px 16px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
+  padding: 12px 18px 12px 42px;
+  border: none;
+  border-radius: var(--radius-pill);
   font-size: var(--font-size-base);
   color: var(--color-text-primary);
-  background-color: var(--color-bg-secondary);
+  background-color: var(--color-bg-muted);
   transition: all var(--transition-fast);
   outline: none;
 }
@@ -21,14 +21,16 @@
 }
 
 .input:focus {
-  border-color: var(--color-border-focus);
-  box-shadow: 0 0 0 3px rgba(76, 139, 245, 0.08);
+  background-color: var(--color-bg-secondary);
+  box-shadow: 0 0 0 1px var(--color-border), 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .icon {
   position: absolute;
-  right: 14px;
+  left: 16px;
   color: var(--color-text-tertiary);
-  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   pointer-events: none;
 }

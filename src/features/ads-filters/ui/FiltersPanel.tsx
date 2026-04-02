@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Checkbox } from '../../../shared/ui/Checkbox';
-import { Toggle } from '../../../shared/ui/Toggle';
+import { Checkbox } from '../../../shared/ui/Checkbox/Checkbox';
+import { Toggle } from '../../../shared/ui/Toggle/Toggle';
+import { Button } from '../../../shared/ui/Button/Button';
 import { useFiltersStore } from '../model/useFiltersStore';
 import type { ItemCategory } from '../../../entities/ad';
 import { CATEGORY_LABELS } from '../../../entities/ad';
@@ -17,8 +18,6 @@ export function FiltersPanel() {
 
   return (
     <aside className={styles.panel}>
-      <h2 className={styles.title}>Фильтры</h2>
-
       <div className={styles.section}>
         <div
           className={styles.sectionHeader}
@@ -57,14 +56,15 @@ export function FiltersPanel() {
 
       <div className={styles.divider} />
 
-      <button
-        className={styles.resetButton}
+      <Button
+        variant="secondary"
+        fullWidth
         onClick={resetFilters}
         disabled={!hasActiveFilters}
         id="filter-reset-btn"
       >
         Сбросить фильтры
-      </button>
+      </Button>
     </aside>
   );
 }

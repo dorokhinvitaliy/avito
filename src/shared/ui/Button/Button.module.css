@@ -3,14 +3,16 @@
   align-items: center;
   justify-content: center;
   gap: var(--spacing-2);
-  font-weight: var(--font-weight-medium);
+  font-weight: 600;
   font-size: var(--font-size-base);
-  line-height: 1;
-  border-radius: var(--radius-md);
-  padding: 10px 20px;
+  line-height: normal;
+  border-radius: var(--radius-pill);
+  padding: 12px 24px;
   transition: all var(--transition-fast);
   white-space: nowrap;
   user-select: none;
+  border: none;
+  cursor: pointer;
 }
 
 .button:disabled {
@@ -103,3 +105,8 @@
 .ai .spinner {
   color: var(--color-accent-orange);
 }
+
+.fullWidth {
+  width: 100%;
+}
+

@@ -1,9 +1,10 @@
 :root {
   /* Colors — Light theme */
-  --color-bg-primary: #fafafa;
+  --color-bg-primary: #f8f9fa;
   --color-bg-secondary: #ffffff;
   --color-bg-elevated: #ffffff;
-  --color-bg-hover: #f5f5f5;
+  --color-bg-muted: #f1f1f1;
+  --color-bg-hover: #f1f1f1;
   --color-bg-active: #eeeeee;
   --color-bg-warning: #fff8ed;
   --color-bg-error: #fef2f2;
@@ -68,11 +69,17 @@
   --spacing-16: 4rem;
 
   /* Borders */
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 22px;
+  --radius-xl: 30px;
+  --radius-pill: 100px;
   --radius-full: 9999px;
+
+  /* Specific Colors */
+  --color-checkbox-bg: #e2e8f0;
+  --color-checkbox-active: #111827;
 
   /* Shadows */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
