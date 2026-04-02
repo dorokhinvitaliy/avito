@@ -22,22 +22,37 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       .filter(Boolean)
       .join(' ');
 
+    const id = rest.id || `input-${Math.random().toString(36).substr(2, 9)}`;
+
     return (
       <div className={wrapperClass}>
-        {label && (
-          <label className={styles.label}>
-            {required && <span className={styles.required}>*</span>}
-            {label}
-          </label>
-        )}
         <div className={styles.inputWrapper}>
-          <input ref={ref} className={styles.input} {...rest} />
-          {onClear && rest.value && (
-            <button type="button" className={styles.clearButton} onClick={onClear} aria-label="Очистить">
-              <X size={14} />
-            </button>
+          <input
+            ref={ref}
+            id={id}
+            className={styles.input}
+            placeholder=" "
+            {...rest}
+          />
+          {label && (
+            <label className={styles.label} htmlFor={id}>
+              {label}
+              {required && <span className={styles.required}>*</span>}
+            </label>
           )}
-          {suffix}
+          <div className={styles.suffixWrapper}>
+            {onClear && rest.value && (
+              <button
+                type="button"
+                className={styles.clearButton}
+                onClick={onClear}
+                aria-label="Очистить"
+              >
+                <X size={14} />
+              </button>
+            )}
+            {suffix}
+          </div>
         </div>
         {error && <span className={styles.error}>{error}</span>}
       </div>

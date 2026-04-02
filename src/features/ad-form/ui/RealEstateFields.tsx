@@ -21,55 +21,56 @@ export function RealEstateFields({ params, originalParams, onChange, missingKeys
     onChange({ ...params, [key]: value || undefined });
   };
 
-  const renderLabel = (text: string, key: keyof RealEstateItemParams) => {
+  const renderLabel = (text: string) => {
+    return text;
+  };
+
+  const renderModifiedSuffix = (key: keyof RealEstateItemParams) => {
     const isFieldModified = originalParams && params[key] !== originalParams[key];
-    if (!isFieldModified) return text;
+    if (!isFieldModified) return null;
 
     return (
-      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-        {text}
-        <ModifiedBadge 
-          originalValue={originalParams[key]} 
-          onReset={() => update(key, originalParams[key])} 
-        />
-      </span>
+      <ModifiedBadge 
+        originalValue={originalParams[key]} 
+        onReset={() => update(key, originalParams[key])} 
+      />
     );
   };
 
   return (
     <>
       <Select
-        label={renderLabel("Тип", "type")}
+        label={renderLabel("Тип")}
+        suffix={renderModifiedSuffix("type")}
         value={params.type ?? ''}
         onChange={(e) => update('type', e.target.value as 'flat' | 'house' | 'room' | undefined)}
         options={TYPE_OPTIONS}
-        placeholder="Тип"
         warning={missingKeys.includes('type')}
       />
       <Input
-        label={renderLabel("Адрес", "address")}
+        label={renderLabel("Адрес")}
+        suffix={renderModifiedSuffix("address")}
         value={params.address ?? ''}
         onChange={(e) => update('address', e.target.value)}
         onClear={() => update('address', undefined)}
-        placeholder="Адрес"
         warning={missingKeys.includes('address')}
       />
       <Input
-        label={renderLabel("Площадь (м²)", "area")}
+        label={renderLabel("Площадь (м²)")}
+        suffix={renderModifiedSuffix("area")}
         type="number"
         value={params.area ?? ''}
         onChange={(e) => update('area', e.target.value ? Number(e.target.value) : undefined)}
         onClear={() => update('area', undefined)}
-        placeholder="Площадь"
         warning={missingKeys.includes('area')}
       />
       <Input
-        label={renderLabel("Этаж", "floor")}
+        label={renderLabel("Этаж")}
+        suffix={renderModifiedSuffix("floor")}
         type="number"
         value={params.floor ?? ''}
         onChange={(e) => update('floor', e.target.value ? Number(e.target.value) : undefined)}
         onClear={() => update('floor', undefined)}
-        placeholder="Этаж"
         warning={missingKeys.includes('floor')}
       />
     </>

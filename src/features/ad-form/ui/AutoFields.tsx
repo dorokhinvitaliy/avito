@@ -20,72 +20,73 @@ export function AutoFields({ params, originalParams, onChange, missingKeys }: Au
     onChange({ ...params, [key]: value || undefined });
   };
 
-  const renderLabel = (text: string, key: keyof AutoItemParams) => {
+  const renderLabel = (text: string) => {
+    return text;
+  };
+
+  const renderModifiedSuffix = (key: keyof AutoItemParams) => {
     const isFieldModified = originalParams && params[key] !== originalParams[key];
-    if (!isFieldModified) return text;
+    if (!isFieldModified) return null;
 
     return (
-      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-        {text}
-        <ModifiedBadge 
-          originalValue={originalParams[key]} 
-          onReset={() => update(key, originalParams[key])} 
-        />
-      </span>
+      <ModifiedBadge 
+        originalValue={originalParams[key]} 
+        onReset={() => update(key, originalParams[key])} 
+      />
     );
   };
 
   return (
     <>
       <Input
-        label={renderLabel("Бренд", "brand")}
+        label={renderLabel("Бренд")}
+        suffix={renderModifiedSuffix("brand")}
         value={params.brand ?? ''}
         onChange={(e) => update('brand', e.target.value)}
         onClear={() => update('brand', undefined)}
-        placeholder="Бренд"
         warning={missingKeys.includes('brand')}
       />
       <Input
-        label={renderLabel("Модель", "model")}
+        label={renderLabel("Модель")}
+        suffix={renderModifiedSuffix("model")}
         value={params.model ?? ''}
         onChange={(e) => update('model', e.target.value)}
         onClear={() => update('model', undefined)}
-        placeholder="Модель"
         warning={missingKeys.includes('model')}
       />
       <Input
-        label={renderLabel("Год выпуска", "yearOfManufacture")}
+        label={renderLabel("Год выпуска")}
+        suffix={renderModifiedSuffix("yearOfManufacture")}
         type="number"
         value={params.yearOfManufacture ?? ''}
         onChange={(e) => update('yearOfManufacture', e.target.value ? Number(e.target.value) : undefined)}
         onClear={() => update('yearOfManufacture', undefined)}
-        placeholder="Год выпуска"
         warning={missingKeys.includes('yearOfManufacture')}
       />
       <Select
-        label={renderLabel("Коробка передач", "transmission")}
+        label={renderLabel("Коробка передач")}
+        suffix={renderModifiedSuffix("transmission")}
         value={params.transmission ?? ''}
         onChange={(e) => update('transmission', e.target.value as 'automatic' | 'manual' | undefined)}
         options={TRANSMISSION_OPTIONS}
-        placeholder="Коробка передач"
         warning={missingKeys.includes('transmission')}
       />
       <Input
-        label={renderLabel("Пробег (км)", "mileage")}
+        label={renderLabel("Пробег (км)")}
+        suffix={renderModifiedSuffix("mileage")}
         type="number"
         value={params.mileage ?? ''}
         onChange={(e) => update('mileage', e.target.value ? Number(e.target.value) : undefined)}
         onClear={() => update('mileage', undefined)}
-        placeholder="Пробег"
         warning={missingKeys.includes('mileage')}
       />
       <Input
-        label={renderLabel("Мощность двигателя (л.с.)", "enginePower")}
+        label={renderLabel("Мощность двигателя (л.с.)")}
+        suffix={renderModifiedSuffix("enginePower")}
         type="number"
         value={params.enginePower ?? ''}
         onChange={(e) => update('enginePower', e.target.value ? Number(e.target.value) : undefined)}
         onClear={() => update('enginePower', undefined)}
-        placeholder="Мощность двигателя"
         warning={missingKeys.includes('enginePower')}
       />
     </>

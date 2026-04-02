@@ -110,3 +110,7 @@
 .descriptionActions {
   margin-top: 12px;
 }
+
+.fieldWithAction {
+  margin-bottom: 0.75rem;
+}

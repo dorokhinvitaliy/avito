@@ -1,5 +1,5 @@
 import { useFiltersStore, SORT_OPTIONS } from '../model/useFiltersStore';
-import { Select } from '../../../shared/ui/Select';
+import { ToolbarSelect } from '../../../shared/ui/ToolbarSelect';
 import styles from './SortSelect.module.css';
 
 export function SortSelect() {
@@ -12,9 +12,9 @@ export function SortSelect() {
 
   return (
     <div className={styles.sortSelect}>
-      <Select
+      <ToolbarSelect
         value={sortIndex}
-        onChange={(e) => setSortIndex(Number(e.target.value))}
+        onChange={(e: { target: { value: string } }) => setSortIndex(Number(e.target.value))}
         options={options}
       />
     </div>

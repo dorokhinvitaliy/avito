@@ -26,63 +26,64 @@ export function ElectronicsFields({ params, originalParams, onChange, missingKey
     onChange({ ...params, [key]: value || undefined });
   };
 
-  const renderLabel = (text: string, key: keyof ElectronicsItemParams) => {
+  const renderLabel = (text: string) => {
+    return text;
+  };
+
+  const renderModifiedSuffix = (key: keyof ElectronicsItemParams) => {
     const isFieldModified = originalParams && params[key] !== originalParams[key];
-    if (!isFieldModified) return text;
+    if (!isFieldModified) return null;
 
     return (
-      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-        {text}
-        <ModifiedBadge 
-          originalValue={originalParams[key]} 
-          onReset={() => update(key, originalParams[key])} 
-        />
-      </span>
+      <ModifiedBadge 
+        originalValue={originalParams[key]} 
+        onReset={() => update(key, originalParams[key])} 
+      />
     );
   };
 
   return (
     <>
       <Select
-        label={renderLabel("Тип", "type")}
+        label={renderLabel("Тип")}
+        suffix={renderModifiedSuffix("type")}
         value={params.type ?? ''}
         onChange={(e) =>
           update('type', e.target.value as 'phone' | 'laptop' | 'misc' | undefined)
         }
         options={TYPE_OPTIONS}
-        placeholder="Тип"
         warning={missingKeys.includes('type')}
       />
       <Input
-        label={renderLabel("Бренд", "brand")}
+        label={renderLabel("Бренд")}
+        suffix={renderModifiedSuffix("brand")}
         value={params.brand ?? ''}
         onChange={(e) => update('brand', e.target.value)}
         onClear={() => update('brand', undefined)}
-        placeholder="Бренд"
         warning={missingKeys.includes('brand')}
       />
       <Input
-        label={renderLabel("Модель", "model")}
+        label={renderLabel("Модель")}
+        suffix={renderModifiedSuffix("model")}
         value={params.model ?? ''}
         onChange={(e) => update('model', e.target.value)}
         onClear={() => update('model', undefined)}
-        placeholder="Модель"
         warning={missingKeys.includes('model')}
       />
       <Input
-        label={renderLabel("Цвет", "color")}
+        label={renderLabel("Цвет")}
+        suffix={renderModifiedSuffix("color")}
         value={params.color ?? ''}
         onChange={(e) => update('color', e.target.value)}
         onClear={() => update('color', undefined)}
-        placeholder="Цвет"
         warning={missingKeys.includes('color')}
       />
       <Select
-        label={renderLabel("Состояние", "condition")}
+        label={renderLabel("Состояние")}
+        suffix={renderModifiedSuffix("condition")}
         value={params.condition ?? ''}
         onChange={(e) => update('condition', e.target.value as 'new' | 'used' | undefined)}
         options={CONDITION_OPTIONS}
-        placeholder="Состояние"
         warning={missingKeys.includes('condition')}
       />
     </>

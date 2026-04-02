@@ -9,7 +9,13 @@ import {
   type ItemParams,
   type ItemUpdatePayload,
 } from '../../entities/ad';
-import { CategoryFields, useDraftStorage, validateForm, hasErrors, type FormErrors } from '../../features/ad-form';
+import {
+  CategoryFields,
+  useDraftStorage,
+  validateForm,
+  hasErrors,
+  type FormErrors,
+} from '../../features/ad-form';
 import { AiDescriptionButton, AiPriceButton } from '../../features/ai-assistant';
 import { ModifiedBadge } from '../../shared/ui/ModifiedBadge';
 import { Button } from '../../shared/ui/Button';
@@ -48,7 +54,12 @@ export function AdEditPage() {
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [hasDraftRestored, setHasDraftRestored] = useState(false);
 
-  const { data: item, isLoading, isError, refetch } = useQuery({
+  const {
+    data: item,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
     queryKey: ['item', numericId],
     queryFn: ({ signal }) => fetchItem(numericId, signal),
     enabled: !isNaN(numericId),
@@ -199,9 +210,12 @@ export function AdEditPage() {
     return false;
   };
 
-  const renderLabel = (text: string, field: keyof FormState) => {
-    const isFieldModified = isModified(field);
-    if (!isFieldModified) return text;
+  const renderLabel = (text: string) => {
+    return text;
+  };
+
+  const renderModifiedSuffix = (field: keyof FormState) => {
+    if (!isModified(field)) return null;
 
     let originalValue: string | number | undefined;
     if (field === 'price') originalValue = item?.price !== null ? item?.price : undefined;
@@ -209,15 +223,7 @@ export function AdEditPage() {
     else if (field === 'title') originalValue = item?.title;
     else if (field === 'category') originalValue = CATEGORY_LABELS[item?.category as ItemCategory];
 
-    return (
-      <span className={styles.modifiedLabelWrapper}>
-        {text}
-        <ModifiedBadge
-          originalValue={originalValue}
-          onReset={() => resetField(field)}
-        />
-      </span>
-    );
+    return <ModifiedBadge originalValue={originalValue} onReset={() => resetField(field)} />;
   };
 
   return (
@@ -228,7 +234,8 @@ export function AdEditPage() {
 
       {hasDraftRestored && (
         <div className={styles.draftNotice}>
-          <Save size={16} style={{ marginBottom: '-2px' }} /> Восстановлен черновик. Изменения будут сохраняться автоматически.
+          <Save size={16} style={{ marginBottom: '-2px' }} /> Восстановлен черновик. Изменения будут
+          сохраняться автоматически.
         </div>
       )}
 
@@ -239,7 +246,8 @@ export function AdEditPage() {
         <div className={styles.formSection}>
           <div className={styles.categorySelect}>
             <Select
-              label={renderLabel("Категория", 'category')}
+              label={renderLabel('Категория')}
+              suffix={renderModifiedSuffix('category')}
               value={form.category}
               onChange={(e) => {
                 updateField('category', e.target.value as ItemCategory);
@@ -254,37 +262,33 @@ export function AdEditPage() {
         <div className={styles.formSection}>
           <div className={styles.fieldMain}>
             <Input
-              label={renderLabel("Название", 'title')}
+              label={renderLabel('Название')}
+              suffix={renderModifiedSuffix('title')}
               required
               value={form.title}
               onChange={(e) => updateField('title', e.target.value)}
               onClear={() => updateField('title', '')}
               onBlur={() => handleBlur('title')}
               error={touched.title ? errors.title : undefined}
-              placeholder="Название"
             />
           </div>
         </div>
 
         {/* Price */}
         <div className={styles.formSection}>
-          <div className={styles.fieldRow} style={{ marginBottom: '.5rem' }}>
-            <div className={styles.fieldMain}>
-              <Input
-                label={renderLabel("Цена", 'price')}
-                required
-                type="number"
-                value={form.price}
-                onChange={(e) => updateField('price', e.target.value)}
-                onClear={() => updateField('price', '')}
-                onBlur={() => handleBlur('price')}
-                error={touched.price ? errors.price : undefined}
-                placeholder="Цена"
-                min={0}
-              />
-            </div>
-
-
+          <div className={`${styles.fieldMain} ${styles.fieldWithAction}`}>
+            <Input
+              label={renderLabel('Цена')}
+              suffix={renderModifiedSuffix('price')}
+              required
+              type="number"
+              value={form.price}
+              onChange={(e) => updateField('price', e.target.value)}
+              onClear={() => updateField('price', '')}
+              onBlur={() => handleBlur('price')}
+              error={touched.price ? errors.price : undefined}
+              min={0}
+            />
           </div>
           <AiPriceButton
             title={form.title}
@@ -309,12 +313,12 @@ export function AdEditPage() {
 
         {/* Description */}
         <div className={styles.formSection}>
-          <h2 className={styles.sectionTitle}>{renderLabel("Описание", 'description')}</h2>
           <div className={styles.descriptionWrapper}>
             <Textarea
+              label={renderLabel('Описание')}
+              suffix={renderModifiedSuffix('description')}
               value={form.description}
               onChange={(e) => updateField('description', e.target.value)}
-              placeholder="Описание товара..."
               currentLength={form.description.length}
               maxLength={DESCRIPTION_MAX_LENGTH}
             />

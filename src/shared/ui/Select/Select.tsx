@@ -17,10 +17,11 @@ interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>
   placeholder?: string;
   value?: string | number;
   onChange?: (e: { target: { value: string; name?: string } }) => void;
+  suffix?: ReactNode;
 }
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
-  ({ label, error, required, warning, options, placeholder, className = '', value, onChange, name, disabled, ...rest }, ref) => {
+  ({ label, error, required, warning, options, placeholder, className = '', value, onChange, name, disabled, suffix, ...rest }, ref) => {
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -35,7 +36,6 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     }, []);
 
     const selectedOption = options.find(opt => String(opt.value) === String(value));
-    const displayLabel = selectedOption ? selectedOption.label : placeholder || '';
 
     const handleSelect = (val: string | number) => {
       setIsOpen(false);
@@ -48,26 +48,30 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       .filter(Boolean)
       .join(' ');
 
+    const isFloating = isOpen || !!selectedOption;
+
     return (
       <div className={wrapperClass} ref={containerRef}>
-        {label && (
-          <label className={styles.label}>
-            {required && <span className={styles.required}>*</span>}
-            {label}
-          </label>
-        )}
-        
         <div 
-          className={`${styles.selectTrigger} ${isOpen ? styles.open : ''} ${error ? styles.errorBorder : ''} ${disabled ? styles.disabled : ''}`}
+          className={`${styles.selectTrigger} ${isOpen ? styles.open : ''} ${error ? styles.errorBorder : ''} ${disabled ? styles.disabled : ''} ${isFloating ? styles.isFloating : ''} ${!label ? styles.compact : ''}`}
           onClick={() => !disabled && setIsOpen(!isOpen)}
           tabIndex={disabled ? -1 : 0}
         >
-          <span className={selectedOption ? styles.selectedValue : styles.placeholder}>
-            {displayLabel}
+          {label && (
+            <label className={styles.label}>
+              {label}
+              {required && <span className={styles.required}>*</span>}
+            </label>
+          )}
+          <span className={`${styles.selectedValue} ${!selectedOption ? styles.placeholderHide : ''}`}>
+            {selectedOption ? selectedOption.label : ''}
           </span>
-          <motion.div animate={{ rotate: isOpen ? 180 : 0 }} className={styles.iconWrapper}>
-            <ChevronDown className={styles.icon} size={16} />
-          </motion.div>
+          <div className={styles.suffixWrapper}>
+            {suffix && <div className={styles.suffix}>{suffix}</div>}
+            <motion.div animate={{ rotate: isOpen ? 180 : 0 }} className={styles.iconWrapper}>
+              <ChevronDown className={styles.icon} size={16} />
+            </motion.div>
+          </div>
         </div>
 
         <div className={styles.dropdownContainer}>
