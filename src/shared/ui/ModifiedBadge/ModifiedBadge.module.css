@@ -1,0 +1,100 @@
+.wrapper {
+  display: inline-flex;
+  position: relative;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
+.badge {
+  font-size: 10px;
+  background-color: var(--color-bg-hover);
+  color: var(--color-text-secondary);
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  cursor: help;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.badge:hover {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-accent-blue);
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-tooltip);
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  min-width: 140px;
+}
+
+.badge:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+.tooltipContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.label {
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.value {
+  font-size: 12px;
+  color: var(--color-text-primary);
+  font-weight: 500;
+  word-break: break-all;
+  white-space: normal;
+  max-width: 200px;
+}
+
+.resetButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.resetButton:hover {
+  background-color: var(--color-accent-blue);
+  border-color: var(--color-accent-blue);
+  color: white;
+}
+
+.resetButton:active {
+  transform: scale(0.96);
+}

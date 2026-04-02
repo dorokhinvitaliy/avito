@@ -11,6 +11,7 @@ import {
 } from '../../entities/ad';
 import { CategoryFields, useDraftStorage, validateForm, hasErrors, type FormErrors } from '../../features/ad-form';
 import { AiDescriptionButton, AiPriceButton } from '../../features/ai-assistant';
+import { ModifiedBadge } from '../../shared/ui/ModifiedBadge';
 import { Button } from '../../shared/ui/Button';
 import { Input } from '../../shared/ui/Input';
 import { Select } from '../../shared/ui/Select';
@@ -137,6 +138,20 @@ export function AdEditPage() {
     }
   };
 
+  const resetField = (key: keyof FormState) => {
+    if (!item) return;
+    if (key === 'price') {
+      updateField('price', item.price !== null ? String(item.price) : '');
+    } else if (key === 'description') {
+      updateField('description', item.description ?? '');
+    } else if (key === 'title') {
+      updateField('title', item.title);
+    } else if (key === 'category') {
+      updateField('category', item.category);
+      updateField('params', { ...item.params });
+    }
+  };
+
   const handleBlur = (field: string) => {
     setTouched((prev) => ({ ...prev, [field]: true }));
     if (form) {
@@ -190,12 +205,23 @@ export function AdEditPage() {
     return false;
   };
 
-  const renderLabel = (text: string, modified: boolean) => {
-    if (!modified) return text;
+  const renderLabel = (text: string, field: keyof FormState) => {
+    const isFieldModified = isModified(field);
+    if (!isFieldModified) return text;
+
+    let originalValue: string | number | undefined;
+    if (field === 'price') originalValue = item?.price !== null ? item?.price : undefined;
+    else if (field === 'description') originalValue = item?.description || undefined;
+    else if (field === 'title') originalValue = item?.title;
+    else if (field === 'category') originalValue = CATEGORY_LABELS[item?.category as ItemCategory];
+
     return (
       <span className={styles.modifiedLabelWrapper}>
         {text}
-        <span className={styles.modifiedBadge}>изменено в черновике</span>
+        <ModifiedBadge 
+          originalValue={originalValue} 
+          onReset={() => resetField(field)} 
+        />
       </span>
     );
   };
@@ -219,7 +245,7 @@ export function AdEditPage() {
         <div className={styles.formSection}>
           <div className={styles.categorySelect}>
             <Select
-              label={renderLabel("Категория", isModified('category'))}
+              label={renderLabel("Категория", 'category')}
               value={form.category}
               onChange={(e) => {
                 updateField('category', e.target.value as ItemCategory);
@@ -234,7 +260,7 @@ export function AdEditPage() {
         <div className={styles.formSection}>
           <div className={styles.fieldMain}>
             <Input
-              label={renderLabel("Название", isModified('title'))}
+              label={renderLabel("Название", 'title')}
               required
               value={form.title}
               onChange={(e) => updateField('title', e.target.value)}
@@ -251,7 +277,7 @@ export function AdEditPage() {
           <div className={styles.fieldRow}>
             <div className={styles.fieldMain}>
               <Input
-                label={renderLabel("Цена", isModified('price'))}
+                label={renderLabel("Цена", 'price')}
                 required
                 type="number"
                 value={form.price}
@@ -287,7 +313,7 @@ export function AdEditPage() {
 
         {/* Description */}
         <div className={styles.formSection}>
-          <h2 className={styles.sectionTitle}>{renderLabel("Описание", isModified('description'))}</h2>
+          <h2 className={styles.sectionTitle}>{renderLabel("Описание", 'description')}</h2>
           <div className={styles.descriptionWrapper}>
             <Textarea
               value={form.description}

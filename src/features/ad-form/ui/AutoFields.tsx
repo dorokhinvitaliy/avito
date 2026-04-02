@@ -1,5 +1,6 @@
 import { Input } from '../../../shared/ui/Input';
 import { Select } from '../../../shared/ui/Select';
+import { ModifiedBadge } from '../../../shared/ui/ModifiedBadge';
 import type { AutoItemParams } from '../../../entities/ad';
 
 interface AutoFieldsProps {
@@ -20,12 +21,16 @@ export function AutoFields({ params, originalParams, onChange, missingKeys }: Au
   };
 
   const renderLabel = (text: string, key: keyof AutoItemParams) => {
-    const isModified = originalParams && params[key] !== originalParams[key];
-    if (!isModified) return text;
+    const isFieldModified = originalParams && params[key] !== originalParams[key];
+    if (!isFieldModified) return text;
+
     return (
       <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
         {text}
-        <span style={{ fontSize: '10px', backgroundColor: 'var(--color-bg-hover)', color: 'var(--color-text-secondary)', padding: '2px 6px', borderRadius: '4px', textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: 600 }}>изменено в черновике</span>
+        <ModifiedBadge 
+          originalValue={originalParams[key]} 
+          onReset={() => update(key, originalParams[key])} 
+        />
       </span>
     );
   };
