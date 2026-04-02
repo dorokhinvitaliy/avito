@@ -16,7 +16,7 @@ export function ModifiedBadge({ originalValue, onReset }: ModifiedBadgeProps) {
   return (
     <div className={styles.wrapper}>
       <span className={styles.badge}>
-        изменено
+        ИЗМЕНЕНО
         <div className={styles.tooltip}>
           <div className={styles.tooltipContent}>
             <span className={styles.label}>Оригинал:</span>

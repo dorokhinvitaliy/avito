@@ -51,22 +51,36 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             <motion.div
               layout
               key={toast.id}
-              initial={{ opacity: 0, y: 50, scale: 0.95 }}
+              initial={{ opacity: 0, y: 50, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
-              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              exit={{ opacity: 0, scale: 0.85, transition: { duration: 0.2 } }}
+              transition={{ type: 'spring', damping: 25, stiffness: 350 }}
               className={`${styles.toast} ${styles[toast.type]}`}
             >
               <div className={styles.iconWrapper}>
-                {toast.type === 'success' ? <Check size={20} strokeWidth={3} /> : <X size={20} strokeWidth={3} />}
+                {toast.type === 'success' ? (
+                  <Check size={18} strokeWidth={3.5} />
+                ) : (
+                  <X size={18} strokeWidth={3.5} />
+                )}
               </div>
               <div className={styles.content}>
                 <div className={styles.title}>{toast.title}</div>
                 {toast.message && <div className={styles.message}>{toast.message}</div>}
               </div>
-              <button aria-label="Закрыть" className={styles.close} onClick={() => removeToast(toast.id)}>
-                <X size={16} strokeWidth={2.5} />
+              <button
+                aria-label="Закрыть"
+                className={styles.close}
+                onClick={() => removeToast(toast.id)}
+              >
+                <X size={14} strokeWidth={3} />
               </button>
+              <motion.div
+                className={styles.progressBar}
+                initial={{ width: '100%' }}
+                animate={{ width: '0%' }}
+                transition={{ duration: 5, ease: 'linear' }}
+              />
             </motion.div>
           ))}
         </AnimatePresence>

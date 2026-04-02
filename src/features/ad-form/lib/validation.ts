@@ -1,18 +1,23 @@
-import type { ItemUpdatePayload } from '../../../entities/ad';
 
 export interface FormErrors {
   title?: string;
   price?: string;
 }
 
-export function validateForm(data: ItemUpdatePayload): FormErrors {
+export interface ValidationData {
+  title: string;
+  price: string | number;
+}
+
+export function validateForm(data: ValidationData): FormErrors {
   const errors: FormErrors = {};
 
   if (!data.title || data.title.trim() === '') {
     errors.title = 'Название должно быть заполнено';
   }
 
-  if (data.price === undefined || data.price === null || isNaN(data.price) || data.price < 0) {
+  const priceStr = String(data.price).trim();
+  if (priceStr === '' || isNaN(Number(priceStr)) || Number(priceStr) < 0) {
     errors.price = 'Цена должна быть заполнена';
   }
 

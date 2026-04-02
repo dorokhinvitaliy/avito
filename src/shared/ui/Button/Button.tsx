@@ -37,7 +37,7 @@ export function Button({
   return (
     <button className={classes} disabled={disabled || isLoading} {...rest}>
       {isLoading && <span className={styles.spinner} />}
-      {icon && !isLoading && <span>{icon}</span>}
+      {icon && !isLoading && icon}
       {children}
     </button>
   );

@@ -109,11 +109,12 @@ export function AdViewPage() {
         <div className={styles.infoSection}>
           {missingFields.length > 0 && (
             <div className={styles.warningBlock}>
-              <span className={styles.warningIcon}>
-                <TriangleAlert size={20} />
-              </span>
               <div className={styles.warningContent}>
-                <h3>Требуются доработки</h3>
+                <h3>
+                  {' '}
+                  <TriangleAlert size={20} style={{ verticalAlign: 'middle' }} />{' '}
+                  <span>Требуются доработки</span>
+                </h3>
                 <p>У объявления не заполнены поля:</p>
                 <ul className={styles.warningList}>
                   {missingFields.map((field) => (

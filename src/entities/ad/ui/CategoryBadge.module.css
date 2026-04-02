@@ -22,12 +22,18 @@
 
 .auto {
   color: var(--color-badge-auto-text);
+  background-color: rgba(37, 99, 235, 0.1);
+  border-radius: 9px;
 }
 
 .real_estate {
   color: var(--color-badge-real-estate-text);
+  background-color: rgba(217, 119, 6, 0.1);
+  border-radius: 9px;
 }
 
 .electronics {
   color: var(--color-badge-electronics-text);
+  background-color: #11b0c429;
+  border-radius: 9px;
 }

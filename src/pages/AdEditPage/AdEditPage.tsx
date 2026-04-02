@@ -115,7 +115,7 @@ export function AdEditPage() {
       params: form.params,
     };
 
-    const formErrors = validateForm(payload);
+    const formErrors = validateForm({ title: form.title, price: form.price });
     setErrors(formErrors);
 
     if (hasErrors(formErrors)) {
@@ -155,13 +155,7 @@ export function AdEditPage() {
   const handleBlur = (field: string) => {
     setTouched((prev) => ({ ...prev, [field]: true }));
     if (form) {
-      const payload: ItemUpdatePayload = {
-        category: form.category,
-        title: form.title.trim(),
-        price: Number(form.price),
-        params: form.params,
-      };
-      const formErrors = validateForm(payload);
+      const formErrors = validateForm({ title: form.title, price: form.price });
       setErrors((prev) => ({ ...prev, [field]: formErrors[field as keyof FormErrors] }));
     }
   };
@@ -218,9 +212,9 @@ export function AdEditPage() {
     return (
       <span className={styles.modifiedLabelWrapper}>
         {text}
-        <ModifiedBadge 
-          originalValue={originalValue} 
-          onReset={() => resetField(field)} 
+        <ModifiedBadge
+          originalValue={originalValue}
+          onReset={() => resetField(field)}
         />
       </span>
     );
@@ -240,7 +234,7 @@ export function AdEditPage() {
 
       <form className={styles.formCard} onSubmit={handleSubmit}>
         <h1 className={styles.formTitle}>Редактирование объявления</h1>
-
+        <h2 className={styles.sectionTitle}>Основное</h2>
         {/* Category */}
         <div className={styles.formSection}>
           <div className={styles.categorySelect}>
@@ -274,7 +268,7 @@ export function AdEditPage() {
 
         {/* Price */}
         <div className={styles.formSection}>
-          <div className={styles.fieldRow}>
+          <div className={styles.fieldRow} style={{ marginBottom: '.5rem' }}>
             <div className={styles.fieldMain}>
               <Input
                 label={renderLabel("Цена", 'price')}
@@ -289,13 +283,15 @@ export function AdEditPage() {
                 min={0}
               />
             </div>
-            <AiPriceButton
-              title={form.title}
-              category={form.category}
-              params={form.params}
-              onApply={(price) => updateField('price', String(price))}
-            />
+
+
           </div>
+          <AiPriceButton
+            title={form.title}
+            category={form.category}
+            params={form.params}
+            onApply={(price) => updateField('price', String(price))}
+          />
         </div>
 
         {/* Category-specific fields */}
@@ -322,16 +318,16 @@ export function AdEditPage() {
               currentLength={form.description.length}
               maxLength={DESCRIPTION_MAX_LENGTH}
             />
-          </div>
-          <div style={{ marginTop: 8 }}>
-            <AiDescriptionButton
-              title={form.title}
-              category={form.category}
-              price={form.price ? Number(form.price) : null}
-              params={form.params}
-              currentDescription={form.description}
-              onApply={(text) => updateField('description', text)}
-            />
+            <div className={styles.descriptionActions}>
+              <AiDescriptionButton
+                title={form.title}
+                category={form.category}
+                price={form.price ? Number(form.price) : null}
+                params={form.params}
+                currentDescription={form.description}
+                onApply={(text) => updateField('description', text)}
+              />
+            </div>
           </div>
         </div>
 

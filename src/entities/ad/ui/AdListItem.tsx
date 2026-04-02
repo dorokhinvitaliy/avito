@@ -24,9 +24,9 @@ const badgeVariants: Variants = {
 };
 
 const textVariants: Variants = {
-  initial: { 
-    opacity: 0, 
-    height: 0, 
+  initial: {
+    opacity: 0,
+    height: 0,
     width: 0,
     marginTop: 0,
     overflow: 'hidden',
@@ -76,7 +76,7 @@ export function AdListItem({ item }: AdListItemProps) {
       tabIndex={0}
       onKeyDown={(e) => e.key === 'Enter' && navigate(`/ads/${item.id}`)}
     >
-      <div 
+      <div
         className={styles.imageWrapper}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -113,7 +113,7 @@ export function AdListItem({ item }: AdListItemProps) {
             }}
           >
             <div className={styles.reviewTitle}>Доработать</div>
-            <motion.div 
+            <motion.div
               className={styles.reviewSubtitle}
               variants={textVariants}
             >
@@ -124,14 +124,12 @@ export function AdListItem({ item }: AdListItemProps) {
       </div>
       <div className={styles.content}>
         <div className={styles.headerRow}>
+          <CategoryBadge category={item.category} className={styles.titleBadge} />
           <h3 className={styles.title} title={item.title}>
-            <span>{item.title}</span> <CategoryBadge category={item.category} className={styles.titleBadge} />
+            <span>{item.title}</span>
           </h3>
         </div>
         <span className={styles.price}>{formatPrice(item.price)}</span>
-        {item.description && (
-          <p className={styles.description}>{item.description}</p>
-        )}
       </div>
     </motion.article>
   );
