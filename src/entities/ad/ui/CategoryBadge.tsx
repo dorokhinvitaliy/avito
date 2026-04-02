@@ -4,11 +4,13 @@ import styles from './CategoryBadge.module.css';
 
 interface CategoryBadgeProps {
   category: ItemCategory;
+  className?: string;
 }
 
-export function CategoryBadge({ category }: CategoryBadgeProps) {
+export function CategoryBadge({ category, className = '' }: CategoryBadgeProps) {
   return (
-    <span className={`${styles.badge} ${styles[category]}`}>
+    <span className={`${styles.badge} ${styles[category]} ${className}`}>
+      <span className={styles.dot} />
       {CATEGORY_LABELS[category]}
     </span>
   );

@@ -42,6 +42,7 @@ export interface ItemListItem {
   id: number;
   category: ItemCategory;
   title: string;
+  description?: string;
   price: number;
   needsRevision: boolean;
 }

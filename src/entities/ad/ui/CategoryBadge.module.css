@@ -1,12 +1,10 @@
 .badge {
   display: inline-flex;
   align-items: center;
-  padding: 3px 10px;
-  border-radius: var(--radius-full);
+  gap: 6px;
   font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
-  border: 1px solid transparent;
-  line-height: 1.4;
+  font-weight: 500;
+  line-height: 1;
   width: fit-content;
   max-width: 100%;
   white-space: nowrap;
@@ -14,20 +12,22 @@
   text-overflow: ellipsis;
 }
 
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+  flex-shrink: 0;
+}
+
 .auto {
-  background-color: var(--color-badge-auto);
   color: var(--color-badge-auto-text);
-  border-color: #bfdbfe;
 }
 
 .real_estate {
-  background-color: var(--color-badge-real-estate);
   color: var(--color-badge-real-estate-text);
-  border-color: #fde68a;
 }
 
 .electronics {
-  background-color: var(--color-badge-electronics);
   color: var(--color-badge-electronics-text);
-  border-color: #ddd6fe;
 }

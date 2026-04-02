@@ -124,10 +124,10 @@ export function AdCard({ item }: AdCardProps) {
       </div>
       <div className={styles.body}>
         <h3 className={styles.title} title={item.title}>
-          {item.title}
+          {item.title} <CategoryBadge category={item.category} className={styles.titleBadge} />
         </h3>
         <div className={styles.priceRow}>
-          <span className={styles.price}>{formatPrice(item.price)}</span> <CategoryBadge category={item.category} />
+          <span className={styles.price}>{formatPrice(item.price)}</span>
         </div>
       </div>
     </motion.article>
