@@ -41,6 +41,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             </label>
           )}
           <div className={styles.suffixWrapper}>
+            {suffix}
             {onClear && rest.value && (
               <button
                 type="button"
@@ -51,7 +52,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                 <X size={14} />
               </button>
             )}
-            {suffix}
           </div>
         </div>
         {error && <span className={styles.error}>{error}</span>}

@@ -92,12 +92,12 @@
 
 .suffixWrapper {
   position: absolute;
-  right: 12px;
+  right: 18px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   z-index: 5;
 }
 
