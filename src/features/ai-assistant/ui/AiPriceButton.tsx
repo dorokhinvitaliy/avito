@@ -4,6 +4,7 @@ import { Sparkles, RefreshCw, Loader2 } from 'lucide-react';
 import { AiTooltip } from './AiTooltip';
 import { suggestMarketPrice } from '../api/ollamaApi';
 import type { ItemCategory, ItemParams } from '../../../entities/ad';
+import { AnimatePresence } from 'framer-motion';
 
 type AiState = 'idle' | 'loading' | 'done' | 'error';
 
@@ -52,13 +53,13 @@ export function AiPriceButton({ title, category, params, onApply }: AiPriceButto
     // Убираем пробелы между цифрами (например "15 000" -> "15000")
     const textWithoutSpacedNumbers = result.replace(/(\d)\s+(?=\d)/g, '$1');
     const numbers = textWithoutSpacedNumbers.match(/\d+/g);
-    
+
     if (numbers && numbers.length > 0) {
-      // Ищем первое число, которое больше 2050 (чтобы пропустить года типа 2020), 
+      // Ищем первое число, которое больше 2050 (чтобы пропустить года типа 2020),
       // либо берем просто первое найденное число
-      const parsedNumbers = numbers.map(n => parseInt(n, 10));
-      let priceToApply = parsedNumbers.find(n => n > 2050 && n <= 1000000000);
-      
+      const parsedNumbers = numbers.map((n) => parseInt(n, 10));
+      let priceToApply = parsedNumbers.find((n) => n > 2050 && n <= 1000000000);
+
       if (!priceToApply) {
         priceToApply = parsedNumbers[0];
       }
@@ -82,7 +83,8 @@ export function AiPriceButton({ title, category, params, onApply }: AiPriceButto
   };
 
   const getButtonIcon = () => {
-    if (state === 'loading') return <Loader2 size={16} style={{ animation: 'spin 1.5s linear infinite' }} />;
+    if (state === 'loading')
+      return <Loader2 size={16} style={{ animation: 'spin 1.5s linear infinite' }} />;
     if (state === 'done' || state === 'error') return <RefreshCw size={16} />;
     return <Sparkles size={16} />;
   };
@@ -90,6 +92,7 @@ export function AiPriceButton({ title, category, params, onApply }: AiPriceButto
   return (
     <div style={{ position: 'relative' }}>
       <Button
+        type="button"
         variant="ai"
         onClick={handleClick}
         disabled={state === 'loading'}
@@ -97,16 +100,17 @@ export function AiPriceButton({ title, category, params, onApply }: AiPriceButto
       >
         {getButtonLabel()}
       </Button>
-
-      {showTooltip && (
-        <AiTooltip
-          content={result}
-          isError={state === 'error'}
-          onApply={handleApply}
-          onClose={handleClose}
-          applyLabel="Применить"
-        />
-      )}
+      <AnimatePresence>
+        {showTooltip && (
+          <AiTooltip
+            content={result}
+            isError={state === 'error'}
+            onApply={handleApply}
+            onClose={handleClose}
+            applyLabel="Применить"
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

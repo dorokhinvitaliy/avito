@@ -242,8 +242,8 @@ export function AdEditPage() {
       <form className={styles.formCard} onSubmit={handleSubmit}>
         <h1 className={styles.formTitle}>Редактирование объявления</h1>
         <h2 className={styles.sectionTitle}>Основное</h2>
-        {/* Category */}
-        <div className={styles.formSection}>
+        <div className={styles.mainFieldsGrid}>
+          {/* Category */}
           <div className={styles.categorySelect}>
             <Select
               label={renderLabel('Категория')}
@@ -256,10 +256,8 @@ export function AdEditPage() {
               options={CATEGORY_OPTIONS}
             />
           </div>
-        </div>
 
-        {/* Title */}
-        <div className={styles.formSection}>
+          {/* Title */}
           <div className={styles.fieldMain}>
             <Input
               label={renderLabel('Название')}
@@ -272,30 +270,34 @@ export function AdEditPage() {
               error={touched.title ? errors.title : undefined}
             />
           </div>
-        </div>
 
-        {/* Price */}
-        <div className={styles.formSection}>
-          <div className={`${styles.fieldMain} ${styles.fieldWithAction}`}>
-            <Input
-              label={renderLabel('Цена')}
-              suffix={renderModifiedSuffix('price')}
-              required
-              type="number"
-              value={form.price}
-              onChange={(e) => updateField('price', e.target.value)}
-              onClear={() => updateField('price', '')}
-              onBlur={() => handleBlur('price')}
-              error={touched.price ? errors.price : undefined}
-              min={0}
-            />
+          {/* Price */}
+          <div className={styles.fieldWithAction}>
+            <div className={styles.fieldRow}>
+              <div className={styles.fieldMain}>
+                <Input
+                  label={renderLabel('Цена')}
+                  suffix={renderModifiedSuffix('price')}
+                  required
+                  type="number"
+                  value={form.price}
+                  onChange={(e) => updateField('price', e.target.value)}
+                  onClear={() => updateField('price', '')}
+                  onBlur={() => handleBlur('price')}
+                  error={touched.price ? errors.price : undefined}
+                  min={0}
+                />
+              </div>
+            </div>
+            <div className={styles.descriptionActions}>
+              <AiPriceButton
+                title={form.title}
+                category={form.category}
+                params={form.params}
+                onApply={(price) => updateField('price', String(price))}
+              />
+            </div>
           </div>
-          <AiPriceButton
-            title={form.title}
-            category={form.category}
-            params={form.params}
-            onApply={(price) => updateField('price', String(price))}
-          />
         </div>
 
         {/* Category-specific fields */}

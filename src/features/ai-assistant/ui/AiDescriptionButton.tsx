@@ -4,6 +4,7 @@ import { Sparkles, RefreshCw, Loader2 } from 'lucide-react';
 import { AiTooltip } from './AiTooltip';
 import { generateDescription } from '../api/ollamaApi';
 import type { ItemCategory, ItemParams } from '../../../entities/ad';
+import { AnimatePresence } from 'framer-motion';
 
 type AiState = 'idle' | 'loading' | 'done' | 'error';
 
@@ -47,10 +48,10 @@ export function AiDescriptionButton({
 
     try {
       const text = await generateDescription(
-        title, 
-        category, 
-        price, 
-        params, 
+        title,
+        category,
+        price,
+        params,
         currentDescription,
         abortController.signal
       );
@@ -91,6 +92,7 @@ export function AiDescriptionButton({
   return (
     <div style={{ position: 'relative' }}>
       <Button
+        type="button"
         variant="ai"
         onClick={handleClick}
         disabled={state === 'loading'}
@@ -98,16 +100,17 @@ export function AiDescriptionButton({
       >
         {getButtonLabel()}
       </Button>
-
-      {showTooltip && (
-        <AiTooltip
-          content={result}
-          isError={state === 'error'}
-          onApply={handleApply}
-          onClose={handleClose}
-          applyLabel="Применить"
-        />
-      )}
+      <AnimatePresence>
+        {showTooltip && (
+          <AiTooltip
+            content={result}
+            isError={state === 'error'}
+            onApply={handleApply}
+            onClose={handleClose}
+            applyLabel="Применить"
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
