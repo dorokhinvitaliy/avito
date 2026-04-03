@@ -18,7 +18,8 @@
   font-weight: 500;
   color: var(--color-text-primary);
   background-color: var(--color-field-bg);
-  resize: vertical;
+  resize: none;
+  overflow: hidden;
   outline: none;
   transition: all var(--transition-fast);
   line-height: 1.5;
