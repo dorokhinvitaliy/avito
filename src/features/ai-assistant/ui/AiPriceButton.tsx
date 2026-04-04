@@ -1,10 +1,13 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import { Button } from '../../../shared/ui/Button';
 import { Sparkles, RefreshCw, Loader2 } from 'lucide-react';
 import { AiTooltip } from './AiTooltip';
 import { suggestMarketPrice } from '../api/ollamaApi';
 import type { ItemCategory, ItemParams } from '../../../entities/ad';
 import { AnimatePresence } from 'framer-motion';
+
+// Extract complex dependency to a variable for ESLint
+const getParamsKey = (params: ItemParams) => JSON.stringify(params);
 
 type AiState = 'idle' | 'loading' | 'done' | 'error';
 
@@ -21,11 +24,33 @@ export function AiPriceButton({ title, category, params, onApply }: AiPriceButto
   const [showTooltip, setShowTooltip] = useState(false);
   const abortControllerRef = useRef<AbortController | null>(null);
 
+  // Sync state with props (Adjusting state while rendering)
+  const [prevProps, setPrevProps] = useState({ title, category, params });
+
+  // Extract complex dependency to a stable value for ESLint
+  const paramsKey = useMemo(() => getParamsKey(params), [params]);
+
+  if (
+    title !== prevProps.title ||
+    category !== prevProps.category ||
+    paramsKey !== getParamsKey(prevProps.params)
+  ) {
+    setPrevProps({ title, category, params });
+    setState('idle');
+    setResult('');
+    setShowTooltip(false);
+    setState('idle');
+    setResult('');
+    setShowTooltip(false);
+  }
+
+  // Abort ongoing request when props change or on unmount
   useEffect(() => {
+    abortControllerRef.current?.abort();
     return () => {
       abortControllerRef.current?.abort();
     };
-  }, []);
+  }, [title, category, paramsKey]);
 
   const handleClick = useCallback(async () => {
     setState('loading');
@@ -40,8 +65,9 @@ export function AiPriceButton({ title, category, params, onApply }: AiPriceButto
       setResult(text);
       setState('done');
       setShowTooltip(true);
-    } catch (err: any) {
-      if (err.name === 'AbortError' || err.code === 'ERR_CANCELED') {
+    } catch (err: unknown) {
+      const error = err as { name?: string; code?: string };
+      if (error.name === 'AbortError' || error.code === 'ERR_CANCELED') {
         return;
       }
       setState('error');

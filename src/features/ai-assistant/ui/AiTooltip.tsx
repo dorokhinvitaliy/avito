@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { Button } from '../../../shared/ui/Button';
 import ReactMarkdown from 'react-markdown';
 import styles from './AiTooltip.module.css';
@@ -19,32 +19,33 @@ export function AiTooltip({
   onClose,
   applyLabel = 'Применить',
 }: AiTooltipProps) {
-  const [position, setPosition] = useState<'top' | 'bottom'>('bottom');
   const tooltipRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    if (tooltipRef.current) {
-      const rect = tooltipRef.current.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      const viewportWidth = window.innerWidth;
+    const tooltip = tooltipRef.current;
+    if (!tooltip) return;
 
-      // Vertical flip logic
-      if (rect.bottom > viewportHeight) {
-        const spaceAbove = rect.top - rect.height;
-        if (spaceAbove > 0) {
-          setPosition('top');
-        }
-      }
+    const rect = tooltip.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    const viewportWidth = window.innerWidth;
 
-      // Horizontal safety: if tooltip overflows right edge, nudge it left
-      if (rect.right > viewportWidth) {
-        const overflow = rect.right - viewportWidth + 12; // 12px padding from edge
-        tooltipRef.current.style.left = `-${overflow}px`;
+    // Vertical flip logic
+    if (rect.bottom > viewportHeight) {
+      const spaceAbove = rect.top - rect.height;
+      if (spaceAbove > 0) {
+        tooltip.classList.add(styles.tooltipTop);
+        tooltip.classList.remove(styles.tooltipBottom);
       }
     }
-  }, []);
 
-  const positionClass = position === 'top' ? styles.tooltipTop : styles.tooltipBottom;
+    // Horizontal safety: if tooltip overflows right edge, nudge it left
+    if (rect.right > viewportWidth) {
+      const overflow = rect.right - viewportWidth + 12; // 12px padding from edge
+      tooltip.style.left = `-${overflow}px`;
+    }
+  }, [content]);
+
+  const positionClass = styles.tooltipBottom;
 
   return (
     <motion.div
