@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { ItemCategory, ItemSortColumn, SortDirection } from '../../../entities/ad';
+import type { ItemCategory, ItemSortColumn, SortDirection } from '@/entities/ad';
 
 export type LayoutMode = 'grid' | 'list';
 

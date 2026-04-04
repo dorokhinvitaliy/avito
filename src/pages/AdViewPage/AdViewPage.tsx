@@ -8,10 +8,10 @@ import {
   translateParamValue,
   getMissingFields,
   ImageSlider,
-} from '../../entities/ad';
-import { Button } from '../../shared/ui/Button';
-import { Skeleton } from '../../shared/ui/Skeleton';
-import { ErrorBlock } from '../../shared/ui/ErrorBlock';
+} from '@/entities/ad';
+import { Button } from '@/shared/ui/Button';
+import { Skeleton } from '@/shared/ui/Skeleton';
+import { ErrorBlock } from '@/shared/ui/ErrorBlock';
 import { Pencil, TriangleAlert } from 'lucide-react';
 import styles from './AdViewPage.module.css';
 

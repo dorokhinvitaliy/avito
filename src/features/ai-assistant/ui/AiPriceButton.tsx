@@ -1,9 +1,9 @@
 import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
-import { Button } from '../../../shared/ui/Button';
+import { Button } from '@/shared/ui/Button';
 import { Sparkles, RefreshCw, Loader2 } from 'lucide-react';
 import { AiTooltip } from './AiTooltip';
 import { suggestMarketPrice } from '../api/ollamaApi';
-import type { ItemCategory, ItemParams } from '../../../entities/ad';
+import type { ItemCategory, ItemParams } from '@/entities/ad';
 import { AnimatePresence } from 'framer-motion';
 
 // Extract complex dependency to a variable for ESLint

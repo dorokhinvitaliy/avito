@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { AdCard, AdListItem, fetchItems } from '../../entities/ad';
-import type { ItemsQueryParams } from '../../entities/ad';
+import { AdCard, AdListItem, fetchItems } from '@/entities/ad';
+import type { ItemsQueryParams } from '@/entities/ad';
 import {
   SearchBar,
   SortSelect,
@@ -9,12 +9,12 @@ import {
   FiltersPanel,
   useFiltersStore,
   SORT_OPTIONS,
-} from '../../features/ads-filters';
-import { Pagination } from '../../shared/ui/Pagination';
-import { SkeletonCard, SkeletonListItem } from '../../shared/ui/Skeleton';
-import { ErrorBlock } from '../../shared/ui/ErrorBlock';
-import { useDebounce } from '../../shared/lib/hooks/useDebounce';
-import { ITEMS_PER_PAGE } from '../../shared/config/constants';
+} from '@/features/ads-filters';
+import { Pagination } from '@/shared/ui/Pagination';
+import { SkeletonCard, SkeletonListItem } from '@/shared/ui/Skeleton';
+import { ErrorBlock } from '@/shared/ui/ErrorBlock';
+import { useDebounce } from '@/shared/lib/hooks/useDebounce';
+import { ITEMS_PER_PAGE } from '@/shared/config/constants';
 import { ClipboardList } from 'lucide-react';
 import styles from './AdsListPage.module.css';
 

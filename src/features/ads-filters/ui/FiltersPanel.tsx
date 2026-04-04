@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Checkbox } from '../../../shared/ui/Checkbox';
-import { Toggle } from '../../../shared/ui/Toggle';
-import { Button } from '../../../shared/ui/Button';
+import { Checkbox } from '@/shared/ui/Checkbox';
+import { Toggle } from '@/shared/ui/Toggle';
+import { Button } from '@/shared/ui/Button';
 import { useFiltersStore } from '../model/useFiltersStore';
-import type { ItemCategory } from '../../../entities/ad';
-import { CATEGORY_LABELS } from '../../../entities/ad';
+import type { ItemCategory } from '@/entities/ad';
+import { CATEGORY_LABELS } from '@/entities/ad';
 import styles from './FiltersPanel.module.css';
 
 const CATEGORIES: ItemCategory[] = ['auto', 'electronics', 'real_estate'];

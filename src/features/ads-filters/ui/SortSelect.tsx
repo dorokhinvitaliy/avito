@@ -1,5 +1,5 @@
 import { useFiltersStore, SORT_OPTIONS } from '../model/useFiltersStore';
-import { ToolbarSelect } from '../../../shared/ui/ToolbarSelect';
+import { ToolbarSelect } from '@/shared/ui/ToolbarSelect';
 import styles from './SortSelect.module.css';
 
 export function SortSelect() {

@@ -8,24 +8,24 @@ import {
   type ItemCategory,
   type ItemParams,
   type ItemUpdatePayload,
-} from '../../entities/ad';
+} from '@/entities/ad';
 import {
   CategoryFields,
   useDraftStorage,
   validateForm,
   hasErrors,
   type FormErrors,
-} from '../../features/ad-form';
-import { AiDescriptionButton, AiPriceButton } from '../../features/ai-assistant';
-import { ModifiedBadge } from '../../shared/ui/ModifiedBadge';
-import { Button } from '../../shared/ui/Button';
-import { Input } from '../../shared/ui/Input';
-import { Select } from '../../shared/ui/Select';
-import { Textarea } from '../../shared/ui/Textarea';
-import { Skeleton } from '../../shared/ui/Skeleton';
-import { ErrorBlock } from '../../shared/ui/ErrorBlock';
-import { useToast } from '../../shared/ui/Toast';
-import { DESCRIPTION_MAX_LENGTH } from '../../shared/config/constants';
+} from '@/features/ad-form';
+import { AiDescriptionButton, AiPriceButton } from '@/features/ai-assistant';
+import { ModifiedBadge } from '@/shared/ui/ModifiedBadge';
+import { Button } from '@/shared/ui/Button';
+import { Input } from '@/shared/ui/Input';
+import { Select } from '@/shared/ui/Select';
+import { Textarea } from '@/shared/ui/Textarea';
+import { Skeleton } from '@/shared/ui/Skeleton';
+import { ErrorBlock } from '@/shared/ui/ErrorBlock';
+import { useToast } from '@/shared/ui/Toast';
+import { DESCRIPTION_MAX_LENGTH } from '@/shared/config/constants';
 import { Save } from 'lucide-react';
 import styles from './AdEditPage.module.css';
 
