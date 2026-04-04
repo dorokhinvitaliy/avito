@@ -1,4 +1,4 @@
-import { type InputHTMLAttributes, type ReactNode, forwardRef } from 'react';
+import { type InputHTMLAttributes, type ReactNode, forwardRef, useId } from 'react';
 import { X } from 'lucide-react';
 import styles from './Input.module.css';
 
@@ -13,6 +13,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ label, error, required, warning, onClear, suffix, className = '', ...rest }, ref) => {
+    const generatedId = useId();
     const wrapperClass = [
       styles.wrapper,
       error && styles.hasError,
@@ -22,18 +23,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       .filter(Boolean)
       .join(' ');
 
-    const id = rest.id || `input-${Math.random().toString(36).substr(2, 9)}`;
+    const id = rest.id || generatedId;
 
     return (
       <div className={wrapperClass}>
         <div className={styles.inputWrapper}>
-          <input
-            ref={ref}
-            id={id}
-            className={styles.input}
-            placeholder=" "
-            {...rest}
-          />
+          <input ref={ref} id={id} className={styles.input} placeholder=" " {...rest} />
           {label && (
             <label className={styles.label} htmlFor={id}>
               {label}

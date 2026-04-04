@@ -1,4 +1,12 @@
-import { type TextareaHTMLAttributes, type ReactNode, forwardRef, useRef, useEffect, useImperativeHandle } from 'react';
+import {
+  type TextareaHTMLAttributes,
+  type ReactNode,
+  forwardRef,
+  useRef,
+  useEffect,
+  useImperativeHandle,
+  useId,
+} from 'react';
 import styles from './Textarea.module.css';
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -11,6 +19,7 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ label, error, currentLength, maxLength, suffix, className = '', ...rest }, ref) => {
+    const generatedId = useId();
     const localRef = useRef<HTMLTextAreaElement>(null);
     useImperativeHandle(ref, () => localRef.current as HTMLTextAreaElement);
 
@@ -28,7 +37,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       adjustHeight();
     }, [rest.value]);
 
-    const id = rest.id || `textarea-${Math.random().toString(36).substr(2, 9)}`;
+    const id = rest.id || generatedId;
 
     return (
       <div className={`${styles.wrapper} ${error ? styles.hasError : ''} ${className}`}>

@@ -8,7 +8,10 @@ interface SelectOption {
   label: string;
 }
 
-interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'onChange' | 'value' | 'options'> {
+interface SelectProps extends Omit<
+  React.SelectHTMLAttributes<HTMLSelectElement>,
+  'onChange' | 'value' | 'options'
+> {
   label?: ReactNode;
   error?: string;
   required?: boolean;
@@ -21,7 +24,23 @@ interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>
 }
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
-  ({ label, error, required, warning, options, placeholder, className = '', value, onChange, name, disabled, suffix, ...rest }, ref) => {
+  (
+    {
+      label,
+      error,
+      required,
+      warning,
+      options,
+      className = '',
+      value,
+      onChange,
+      name,
+      disabled,
+      suffix,
+      ...rest
+    },
+    ref,
+  ) => {
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -35,7 +54,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       return () => document.removeEventListener('mousedown', clickHandler);
     }, []);
 
-    const selectedOption = options.find(opt => String(opt.value) === String(value));
+    const selectedOption = options.find((opt) => String(opt.value) === String(value));
 
     const handleSelect = (val: string | number) => {
       setIsOpen(false);
@@ -52,7 +71,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
 
     return (
       <div className={wrapperClass} ref={containerRef}>
-        <div 
+        <div
           className={`${styles.selectTrigger} ${isOpen ? styles.open : ''} ${error ? styles.errorBorder : ''} ${disabled ? styles.disabled : ''} ${isFloating ? styles.isFloating : ''} ${!label ? styles.compact : ''}`}
           onClick={() => !disabled && setIsOpen(!isOpen)}
           tabIndex={disabled ? -1 : 0}
@@ -63,7 +82,9 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
               {required && <span className={styles.required}>*</span>}
             </label>
           )}
-          <span className={`${styles.selectedValue} ${!selectedOption ? styles.placeholderHide : ''}`}>
+          <span
+            className={`${styles.selectedValue} ${!selectedOption ? styles.placeholderHide : ''}`}
+          >
             {selectedOption ? selectedOption.label : ''}
           </span>
           <div className={styles.suffixWrapper}>
@@ -85,9 +106,9 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                 transition={{ type: 'spring', damping: 25, stiffness: 400 }}
               >
                 <ul className={styles.optionList}>
-                  {options.map(opt => (
-                    <li 
-                      key={opt.value} 
+                  {options.map((opt) => (
+                    <li
+                      key={opt.value}
                       className={`${styles.option} ${String(value) === String(opt.value) ? styles.selectedOption : ''}`}
                       onClick={() => handleSelect(opt.value)}
                     >
@@ -100,16 +121,25 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           </AnimatePresence>
         </div>
 
-        <select ref={ref} value={value} onChange={() => {}} name={name} style={{ display: 'none' }} {...rest}>
+        <select
+          ref={ref}
+          value={value}
+          onChange={() => {}}
+          name={name}
+          style={{ display: 'none' }}
+          {...rest}
+        >
           {options.map((opt) => (
-             <option key={opt.value} value={opt.value}>{opt.label}</option>
+            <option key={opt.value} value={opt.value}>
+              {opt.label}
+            </option>
           ))}
         </select>
-        
+
         {error && <span className={styles.error}>{error}</span>}
       </div>
     );
-  }
+  },
 );
 
 Select.displayName = 'Select';
