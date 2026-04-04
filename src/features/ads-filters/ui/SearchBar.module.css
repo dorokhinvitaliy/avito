@@ -1,7 +1,12 @@
+.searchWrapper {
+  flex: 1;
+}
+
 .searchBar {
   position: relative;
   display: flex;
   align-items: center;
+  z-index: 4;
 }
 
 .input {
@@ -22,7 +27,9 @@
 
 .input:focus {
   background-color: var(--color-bg-secondary);
-  box-shadow: 0 0 0 1px var(--color-border), 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow:
+    0 0 0 1px var(--color-border),
+    0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .icon {
@@ -33,4 +40,22 @@
   align-items: center;
   justify-content: center;
   pointer-events: none;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #00000036;
+  z-index: 3;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.visible {
+  opacity: 1;
+  pointer-events: all;
 }

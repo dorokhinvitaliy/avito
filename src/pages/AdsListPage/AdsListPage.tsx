@@ -19,15 +19,8 @@ import { ClipboardList } from 'lucide-react';
 import styles from './AdsListPage.module.css';
 
 export function AdsListPage() {
-  const {
-    searchQuery,
-    categories,
-    needsRevision,
-    sortIndex,
-    layout,
-    page,
-    setPage,
-  } = useFiltersStore();
+  const { searchQuery, categories, needsRevision, sortIndex, layout, page, setPage } =
+    useFiltersStore();
 
   const debouncedSearch = useDebounce(searchQuery, 400);
   const currentSort = SORT_OPTIONS[sortIndex];
@@ -83,9 +76,7 @@ export function AdsListPage() {
           {data && <span className={styles.count}>{data.total} объявлений</span>}
         </div>
         <div className={styles.toolbar}>
-          <div className={styles.searchWrapper}>
-            <SearchBar />
-          </div>
+          <SearchBar />
           <LayoutToggle />
           <SortSelect />
         </div>
@@ -98,11 +89,7 @@ export function AdsListPage() {
           {isFetching && (
             <div className={layout === 'grid' ? styles.skeletonGrid : styles.skeletonList}>
               {Array.from({ length: ITEMS_PER_PAGE }).map((_, i) =>
-                layout === 'grid' ? (
-                  <SkeletonCard key={i} />
-                ) : (
-                  <SkeletonListItem key={i} />
-                ),
+                layout === 'grid' ? <SkeletonCard key={i} /> : <SkeletonListItem key={i} />,
               )}
             </div>
           )}
