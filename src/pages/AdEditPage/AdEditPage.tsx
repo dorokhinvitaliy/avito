@@ -70,24 +70,23 @@ export function AdEditPage() {
     setHasDraftRestored(true);
   }, []);
 
-  const { saveDraft, clearDraft, hasDraft } = useDraftStorage<FormState>(
+  const { saveDraft, clearDraft, hasDraft, isReady } = useDraftStorage<FormState>(
     numericId,
     form,
     handleDraftRestore,
   );
 
-  // Initialize form from fetched data (only if no draft was restored and no draft exists)
-  useEffect(() => {
-    if (item && !form && !hasDraftRestored && !hasDraft()) {
-      setForm({
-        category: item.category,
-        title: item.title,
-        description: item.description ?? '',
-        price: item.price !== null ? String(item.price) : '',
-        params: { ...item.params },
-      });
-    }
-  }, [item, form, hasDraftRestored]);
+  // Initialize form from fetched data (Adjusting state while rendering)
+  // This pattern is recommended to avoid useEffect-triggered cascading renders
+  if (item && form === null && !hasDraftRestored && isReady && !hasDraft()) {
+    setForm({
+      category: item.category,
+      title: item.title,
+      description: item.description ?? '',
+      price: item.price !== null ? String(item.price) : '',
+      params: { ...item.params },
+    });
+  }
 
   // Auto-save draft on form changes
   useEffect(() => {

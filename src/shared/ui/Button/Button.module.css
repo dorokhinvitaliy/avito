@@ -114,6 +114,16 @@
   color: var(--color-text-inverse);
 }
 
+@keyframes spin {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .ai .spinner {
   color: var(--color-accent-orange);
 }
