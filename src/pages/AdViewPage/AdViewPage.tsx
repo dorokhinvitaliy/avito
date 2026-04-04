@@ -1,4 +1,4 @@
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import {
   fetchItem,
@@ -9,10 +9,8 @@ import {
   getMissingFields,
   ImageSlider,
 } from '@/entities/ad';
-import { Button } from '@/shared/ui/Button';
-import { Skeleton } from '@/shared/ui/Skeleton';
-import { ErrorBlock } from '@/shared/ui/ErrorBlock';
 import { Pencil, TriangleAlert } from 'lucide-react';
+import { BackLink, Button, ErrorBlock, Flex, Skeleton, Stack, Card, Typography } from '@/shared/ui';
 import styles from './AdViewPage.module.css';
 
 export function AdViewPage() {
@@ -20,7 +18,12 @@ export function AdViewPage() {
   const navigate = useNavigate();
   const numericId = Number(id);
 
-  const { data: item, isLoading, isError, refetch } = useQuery({
+  const {
+    data: item,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
     queryKey: ['item', numericId],
     queryFn: ({ signal }) => fetchItem(numericId, signal),
     enabled: !isNaN(numericId),
@@ -70,14 +73,13 @@ export function AdViewPage() {
 
   return (
     <div className={styles.page}>
-      <Link to="/ads" className={styles.backLink}>
-        ← Вернуться к списку
-      </Link>
+      <BackLink to="/ads">Вернуться к списку</BackLink>
 
-      <div className={styles.topSection}>
-        <div className={styles.titleGroup}>
-          <h1 className={styles.title}>{item.title}</h1>
-          <div className={styles.editButton}>
+      <Stack gap={6}>
+        {/* Header Section */}
+        <Flex justify="between" align="start" wrap className={styles.topSection}>
+          <Stack gap={4} align="start">
+            <Typography variant="h2">{item.title}</Typography>
             <Button
               variant="primary"
               onClick={() => navigate(`/ads/${item.id}/edit`)}
@@ -85,74 +87,90 @@ export function AdViewPage() {
             >
               Редактировать
             </Button>
-          </div>
-        </div>
+          </Stack>
+          <Stack align="end" gap={2}>
+            <Typography variant="h2" weight="bold">
+              {formatPrice(item.price)}
+            </Typography>
+            <Flex direction="column" align="end">
+              <Typography variant="caption" color="tertiary">
+                Опубликовано: {formatDate(item.createdAt)}
+              </Typography>
+              {item.updatedAt !== item.createdAt && (
+                <Typography variant="caption" color="tertiary">
+                  Отредактировано: {formatDate(item.updatedAt)}
+                </Typography>
+              )}
+            </Flex>
+          </Stack>
+        </Flex>
 
-        <div className={styles.priceGroup}>
-          <div className={styles.price}>{formatPrice(item.price)}</div>
-          <div className={styles.dates}>
-            <span>Опубликовано: {formatDate(item.createdAt)}</span>
-            {item.updatedAt !== item.createdAt && (
-              <span>Отредактировано: {formatDate(item.updatedAt)}</span>
+        <div className={styles.mainContent}>
+          <div className={styles.imageSection}>
+            <ImageSlider id={item.id} category={item.category} />
+          </div>
+
+          <div className={styles.infoSection}>
+            {missingFields.length > 0 && (
+              <Card padding={6} className={styles.warningCard}>
+                <Stack gap={3}>
+                  <Flex align="center" gap={2}>
+                    <TriangleAlert size={20} className={styles.warningIconColor} />
+                    <Typography variant="h4" as="h3" className={styles.warningTitle}>
+                      Требуются доработки
+                    </Typography>
+                  </Flex>
+                  <Typography variant="body1" className={styles.warningText}>
+                    У объявления не заполнены поля:
+                  </Typography>
+                  <ul className={styles.warningList}>
+                    {missingFields.map((field) => (
+                      <li key={field}>
+                        <Typography variant="body2">{field}</Typography>
+                      </li>
+                    ))}
+                  </ul>
+                </Stack>
+              </Card>
+            )}
+
+            {filledParams.length > 0 && (
+              <Stack gap={4}>
+                <Typography variant="h4" as="h2">
+                  Характеристики
+                </Typography>
+                <Stack gap={2}>
+                  {filledParams.map(([key, value]) => (
+                    <Flex key={key} gap={4}>
+                      <Typography variant="body2" color="secondary" className={styles.specLabel}>
+                        {paramLabels[key] ?? key}
+                      </Typography>
+                      <Typography variant="body2" weight="medium">
+                        {translateParamValue(item.category, key, value)}
+                      </Typography>
+                    </Flex>
+                  ))}
+                </Stack>
+              </Stack>
             )}
           </div>
         </div>
-      </div>
 
-      <div className={styles.divider} />
-
-      <div className={styles.mainContent}>
-        <div className={styles.imageSection}>
-          <ImageSlider id={item.id} category={item.category} />
-        </div>
-
-        <div className={styles.infoSection}>
-          {missingFields.length > 0 && (
-            <div className={styles.warningBlock}>
-              <div className={styles.warningContent}>
-                <h3>
-                  {' '}
-                  <TriangleAlert size={20} style={{ verticalAlign: 'middle' }} />{' '}
-                  <span>Требуются доработки</span>
-                </h3>
-                <p>У объявления не заполнены поля:</p>
-                <ul className={styles.warningList}>
-                  {missingFields.map((field) => (
-                    <li key={field}>{field}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+        <Stack gap={4}>
+          <Typography variant="h4" as="h2">
+            Описание
+          </Typography>
+          {item.description ? (
+            <Typography variant="body1" className={styles.descriptionText}>
+              {item.description}
+            </Typography>
+          ) : (
+            <Typography variant="body1" color="tertiary" className={styles.noDescription}>
+              Отсутствует
+            </Typography>
           )}
-
-          {filledParams.length > 0 && (
-            <div>
-              <h2 className={styles.specsTitle}>Характеристики</h2>
-              <div className={styles.specsTable}>
-                {filledParams.map(([key, value]) => (
-                  <div key={key} className={styles.specRow}>
-                    <span className={styles.specLabel}>{paramLabels[key] ?? key}</span>
-                    <span className={styles.specValue}>
-                      {translateParamValue(item.category, key, value)}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-
-      <div className={styles.divider} />
-
-      <div className={styles.descriptionSection}>
-        <h2 className={styles.descriptionTitle}>Описание</h2>
-        {item.description ? (
-          <p className={styles.descriptionText}>{item.description}</p>
-        ) : (
-          <p className={`${styles.descriptionText} ${styles.noDescription}`}>Отсутствует</p>
-        )}
-      </div>
+        </Stack>
+      </Stack>
     </div>
   );
 }

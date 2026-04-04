@@ -1,0 +1,39 @@
+.grid {
+  display: grid;
+}
+
+.align-start {
+  align-items: flex-start;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.align-end {
+  align-items: flex-end;
+}
+
+.align-stretch {
+  align-items: stretch;
+}
+
+.justify-start {
+  justify-items: flex-start;
+}
+
+.justify-center {
+  justify-items: center;
+}
+
+.justify-end {
+  justify-items: flex-end;
+}
+
+.justify-stretch {
+  justify-items: stretch;
+}
+
+.fullWidth {
+  width: 100%;
+}

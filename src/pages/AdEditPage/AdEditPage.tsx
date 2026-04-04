@@ -28,6 +28,7 @@ import { useToast } from '@/shared/ui/Toast';
 import { DESCRIPTION_MAX_LENGTH } from '@/shared/config/constants';
 import { Save } from 'lucide-react';
 import styles from './AdEditPage.module.css';
+import { BackLink, Flex, Grid, Stack, Typography } from '@/shared/ui';
 
 const CATEGORY_OPTIONS = Object.entries(CATEGORY_LABELS).map(([value, label]) => ({
   value,
@@ -209,10 +210,6 @@ export function AdEditPage() {
     return false;
   };
 
-  const renderLabel = (text: string) => {
-    return text;
-  };
-
   const renderModifiedSuffix = (field: keyof FormState) => {
     if (!isModified(field)) return null;
 
@@ -227,117 +224,111 @@ export function AdEditPage() {
 
   return (
     <div className={styles.page}>
-      <Link to={`/ads/${numericId}`} className={styles.backLink}>
-        ← Вернуться к объявлению
-      </Link>
+      <BackLink to={`/ads/${numericId}`}>Вернуться к объявлению</BackLink>
 
       {hasDraftRestored && (
-        <div className={styles.draftNotice}>
-          <Save size={16} style={{ marginBottom: '-2px' }} /> Восстановлен черновик. Изменения будут
-          сохраняться автоматически.
-        </div>
+        <Flex align="center" gap={2} className={styles.draftNotice}>
+          <Save size={16} />
+          <Typography variant="body2" weight="semibold" color="inverse">
+            Восстановлен черновик. Изменения будут сохраняться автоматически.
+          </Typography>
+        </Flex>
       )}
 
       <form className={styles.formCard} onSubmit={handleSubmit}>
-        <h1 className={styles.formTitle}>Редактирование объявления</h1>
-        <h2 className={styles.sectionTitle}>Основное</h2>
-        <div className={styles.mainFieldsGrid}>
-          {/* Category */}
-          <div className={styles.categorySelect}>
-            <Select
-              label={renderLabel('Категория')}
-              suffix={renderModifiedSuffix('category')}
-              value={form.category}
-              onChange={(e) => {
-                updateField('category', e.target.value as ItemCategory);
-                updateField('params', {});
-              }}
-              options={CATEGORY_OPTIONS}
-            />
-          </div>
+        <Typography variant="h2" as="h1" className={styles.formTitle}>
+          Редактирование объявления
+        </Typography>
+        <Stack gap={3}>
+          <Typography variant="h4" as="h2">
+            Основное
+          </Typography>
+          <Grid minColWidth={320} gap={2}>
+            <Stack gap={2}>
+              {/* Category */}
 
-          {/* Title */}
-          <div className={styles.fieldMain}>
-            <Input
-              label={renderLabel('Название')}
-              suffix={renderModifiedSuffix('title')}
-              required
-              value={form.title}
-              onChange={(e) => updateField('title', e.target.value)}
-              onClear={() => updateField('title', '')}
-              onBlur={() => handleBlur('title')}
-              error={touched.title ? errors.title : undefined}
-            />
-          </div>
+              <Select
+                label="Категория"
+                suffix={renderModifiedSuffix('category')}
+                value={form.category}
+                onChange={(e) => {
+                  updateField('category', e.target.value as ItemCategory);
+                  updateField('params', {});
+                }}
+                options={CATEGORY_OPTIONS}
+              />
 
-          {/* Price */}
-          <div className={styles.fieldWithAction}>
-            <div className={styles.fieldRow}>
-              <div className={styles.fieldMain}>
-                <Input
-                  label={renderLabel('Цена')}
-                  suffix={renderModifiedSuffix('price')}
-                  required
-                  type="number"
-                  value={form.price}
-                  onChange={(e) => updateField('price', e.target.value)}
-                  onClear={() => updateField('price', '')}
-                  onBlur={() => handleBlur('price')}
-                  error={touched.price ? errors.price : undefined}
-                  min={0}
-                />
-              </div>
-            </div>
-            <div className={styles.descriptionActions}>
+              {/* Title */}
+
+              <Input
+                label="Название"
+                suffix={renderModifiedSuffix('title')}
+                required
+                value={form.title}
+                onChange={(e) => updateField('title', e.target.value)}
+                onClear={() => updateField('title', '')}
+                onBlur={() => handleBlur('title')}
+                error={touched.title ? errors.title : undefined}
+              />
+
+              {/* Price */}
+
+              <Input
+                label="Цена"
+                suffix={renderModifiedSuffix('price')}
+                required
+                type="number"
+                value={form.price}
+                onChange={(e) => updateField('price', e.target.value)}
+                onClear={() => updateField('price', '')}
+                onBlur={() => handleBlur('price')}
+                error={touched.price ? errors.price : undefined}
+                min={0}
+              />
+
               <AiPriceButton
                 title={form.title}
                 category={form.category}
                 params={form.params}
                 onApply={(price) => updateField('price', String(price))}
               />
-            </div>
-          </div>
-        </div>
-
+            </Stack>
+          </Grid>
+        </Stack>
         {/* Category-specific fields */}
-        <div className={styles.formSection}>
-          <h2 className={styles.sectionTitle}>Характеристики</h2>
-          <div className={styles.paramsGrid}>
+        <Stack gap={3}>
+          <Typography variant="h4" as="h2">
+            Характеристики
+          </Typography>
+          <Grid minColWidth={280} gap={2}>
             <CategoryFields
               category={form.category}
               params={form.params}
               originalParams={item.params}
               onChange={(params) => updateField('params', params)}
             />
-          </div>
-        </div>
+          </Grid>
+          <Textarea
+            label="Описание"
+            suffix={renderModifiedSuffix('description')}
+            value={form.description}
+            onChange={(e) => updateField('description', e.target.value)}
+            currentLength={form.description.length}
+            maxLength={DESCRIPTION_MAX_LENGTH}
+          />
 
-        {/* Description */}
-        <div className={styles.formSection}>
-          <div className={styles.descriptionWrapper}>
-            <Textarea
-              label={renderLabel('Описание')}
-              suffix={renderModifiedSuffix('description')}
-              value={form.description}
-              onChange={(e) => updateField('description', e.target.value)}
-              currentLength={form.description.length}
-              maxLength={DESCRIPTION_MAX_LENGTH}
-            />
-            <div className={styles.descriptionActions}>
-              <AiDescriptionButton
-                title={form.title}
-                category={form.category}
-                price={form.price ? Number(form.price) : null}
-                params={form.params}
-                currentDescription={form.description}
-                onApply={(text) => updateField('description', text)}
-              />
-            </div>
-          </div>
-        </div>
+          <AiDescriptionButton
+            title={form.title}
+            category={form.category}
+            price={form.price ? Number(form.price) : null}
+            params={form.params}
+            currentDescription={form.description}
+            onApply={(text) => updateField('description', text)}
+          />
+        </Stack>
 
         {/* Actions */}
-        <div className={styles.formActions}>
+        <Flex gap={3}>
           <Button
             type="submit"
             variant="primary"
@@ -349,7 +340,7 @@ export function AdEditPage() {
           <Button type="button" variant="secondary" onClick={handleCancel}>
             Отменить
           </Button>
-        </div>
+        </Flex>
       </form>
     </div>
   );

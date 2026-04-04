@@ -1,1 +1,1 @@
-export { Skeleton, SkeletonCard, SkeletonListItem } from './Skeleton';
+export * from './Skeleton';

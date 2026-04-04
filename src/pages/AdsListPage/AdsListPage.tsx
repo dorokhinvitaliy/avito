@@ -10,12 +10,19 @@ import {
   useFiltersStore,
   SORT_OPTIONS,
 } from '@/features/ads-filters';
-import { Pagination } from '@/shared/ui/Pagination';
-import { SkeletonCard, SkeletonListItem } from '@/shared/ui/Skeleton';
-import { ErrorBlock } from '@/shared/ui/ErrorBlock';
 import { useDebounce } from '@/shared/lib/hooks/useDebounce';
 import { ITEMS_PER_PAGE } from '@/shared/config/constants';
 import { ClipboardList } from 'lucide-react';
+import {
+  ErrorBlock,
+  Flex,
+  Grid,
+  Pagination,
+  SkeletonCard,
+  SkeletonListItem,
+  Stack,
+  Typography,
+} from '@/shared/ui';
 import styles from './AdsListPage.module.css';
 
 export function AdsListPage() {
@@ -70,60 +77,74 @@ export function AdsListPage() {
 
   return (
     <div className={styles.page}>
-      <header className={styles.header}>
-        <div className={styles.titleRow}>
-          <h1 className={styles.title}>Мои объявления</h1>
-          {data && <span className={styles.count}>{data.total} объявлений</span>}
-        </div>
-        <div className={styles.toolbar}>
+      <Stack gap={6} as="header" className={styles.header}>
+        <Flex align="baseline" gap={3}>
+          <Typography variant="h2" as="h1">
+            Мои объявления
+          </Typography>
+          {data && (
+            <Typography variant="body2" color="tertiary">
+              {data.total} объявлений
+            </Typography>
+          )}
+        </Flex>
+        <Flex align="center" gap={4} wrap className={styles.toolbar}>
           <SearchBar />
           <LayoutToggle />
           <SortSelect />
-        </div>
-      </header>
+        </Flex>
+      </Stack>
 
       <div className={styles.content}>
         <FiltersPanel />
 
-        <div className={styles.main}>
-          {isFetching && (
-            <div className={layout === 'grid' ? styles.skeletonGrid : styles.skeletonList}>
-              {Array.from({ length: ITEMS_PER_PAGE }).map((_, i) =>
-                layout === 'grid' ? <SkeletonCard key={i} /> : <SkeletonListItem key={i} />,
-              )}
-            </div>
-          )}
+        <main className={styles.main}>
+          <Stack gap={layout === 'grid' ? 4 : 3}>
+            {isFetching && (
+              <Grid cols={layout === 'grid' ? 4 : 1} gap={layout === 'grid' ? 4 : 3} className={layout === 'grid' ? styles.responsiveGrid : ''}>
+                {Array.from({ length: ITEMS_PER_PAGE }).map((_, i) =>
+                  layout === 'grid' ? <SkeletonCard key={i} /> : <SkeletonListItem key={i} />,
+                )}
+              </Grid>
+            )}
 
-          {isError && <ErrorBlock onRetry={() => refetch()} />}
+            {isError && <ErrorBlock onRetry={() => refetch()} />}
 
-          {!isFetching && !isError && sortedItems.length === 0 && (
-            <div className={styles.emptyState}>
-              <span className={styles.emptyIcon}>
-                <ClipboardList size={48} />
-              </span>
-              <h2 className={styles.emptyTitle}>Ничего не найдено</h2>
-              <p className={styles.emptyText}>
-                Попробуйте изменить параметры поиска или сбросить фильтры
-              </p>
-            </div>
-          )}
+            {!isFetching && !isError && sortedItems.length === 0 && (
+              <Stack align="center" justify="center" gap={4} className={styles.emptyState}>
+                <span className={styles.emptyIcon}>
+                  <ClipboardList size={48} />
+                </span>
+                <Stack align="center" gap={2}>
+                  <Typography variant="h3" align="center">
+                    Ничего не найдено
+                  </Typography>
+                  <Typography variant="body1" color="secondary" align="center">
+                    Попробуйте изменить параметры поиска или сбросить фильтры
+                  </Typography>
+                </Stack>
+              </Stack>
+            )}
 
-          {!isFetching && !isError && sortedItems.length > 0 && (
-            <div className={layout === 'grid' ? styles.grid : styles.list}>
-              {sortedItems.map((item) =>
-                layout === 'grid' ? (
-                  <AdCard key={item.id} item={item} />
-                ) : (
-                  <AdListItem key={item.id} item={item} />
-                ),
-              )}
-            </div>
-          )}
+            {!isFetching && !isError && sortedItems.length > 0 && (
+              <Grid cols={layout === 'grid' ? 4 : 1} gap={layout === 'grid' ? 4 : 3} className={layout === 'grid' ? styles.responsiveGrid : ''}>
+                {sortedItems.map((item) =>
+                  layout === 'grid' ? (
+                    <AdCard key={item.id} item={item} />
+                  ) : (
+                    <AdListItem key={item.id} item={item} />
+                  ),
+                )}
+              </Grid>
+            )}
+          </Stack>
 
           {!isError && totalPages > 0 && (
-            <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
+            <div style={{ marginTop: '32px' }}>
+              <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
+            </div>
           )}
-        </div>
+        </main>
       </div>
     </div>
   );
