@@ -33,7 +33,7 @@ describe('useDebounce', () => {
     expect(result.current).toBe('updated');
   });
 
-  it('uses default delay of 500ms', () => {
+  it('uses default delay of 300ms', () => {
     const { result, rerender } = renderHook(({ value }) => useDebounce(value), {
       initialProps: { value: 'initial' },
     });
@@ -43,7 +43,13 @@ describe('useDebounce', () => {
     rerender({ value: 'updated' });
 
     act(() => {
-      vi.advanceTimersByTime(500);
+      vi.advanceTimersByTime(299);
+    });
+
+    expect(result.current).toBe('initial');
+
+    act(() => {
+      vi.advanceTimersByTime(1);
     });
 
     expect(result.current).toBe('updated');

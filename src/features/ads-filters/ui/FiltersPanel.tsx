@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Checkbox } from '../../../shared/ui/Checkbox/Checkbox';
-import { Toggle } from '../../../shared/ui/Toggle/Toggle';
-import { Button } from '../../../shared/ui/Button/Button';
+import { Checkbox } from '../../../shared/ui/Checkbox';
+import { Toggle } from '../../../shared/ui/Toggle';
+import { Button } from '../../../shared/ui/Button';
 import { useFiltersStore } from '../model/useFiltersStore';
 import type { ItemCategory } from '../../../entities/ad';
 import { CATEGORY_LABELS } from '../../../entities/ad';

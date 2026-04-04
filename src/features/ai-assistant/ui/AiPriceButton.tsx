@@ -39,9 +39,6 @@ export function AiPriceButton({ title, category, params, onApply }: AiPriceButto
     setState('idle');
     setResult('');
     setShowTooltip(false);
-    setState('idle');
-    setResult('');
-    setShowTooltip(false);
   }
 
   // Abort ongoing request when props change or on unmount
