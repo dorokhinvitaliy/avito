@@ -13,7 +13,8 @@ services:
     build:
       context: ./client
       args:
-        - VITE_API_BASE_URL=http://localhost:8080
+        - VITE_API_BASE_URL=/api
+        - VITE_OLLAMA_BASE_URL=/ollama
         - VITE_OLLAMA_MODEL=llama3
     ports:
       - "80:80"
