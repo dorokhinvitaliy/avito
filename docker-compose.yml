@@ -1,0 +1,49 @@
+services:
+  backend:
+    build:
+      context: ./server
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+    networks:
+      - avito-network
+
+  frontend:
+    build:
+      context: ./client
+      args:
+        - VITE_API_BASE_URL=http://localhost:8080
+        - VITE_OLLAMA_MODEL=llama3
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+      - ollama
+    networks:
+      - avito-network
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - avito-network
+
+  # Helper service to pull the model on startup
+  ollama-setup:
+    image: curlimages/curl:latest
+    depends_on:
+      - ollama
+    networks:
+      - avito-network
+    entrypoint: [ "sh", "-c", "until curl -s ollama:11434/api/tags; do sleep 5; done; curl -X POST ollama:11434/api/pull -d '{\"name\": \"llama3\"}'" ]
+
+networks:
+  avito-network:
+    driver: bridge
+
+volumes:
+  ollama_data:

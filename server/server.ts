@@ -173,9 +173,10 @@ fastify.put<ItemUpdateRequest>('/items/:id', (request, reply) => {
   }
 });
 
-const port = parseInt(process.env.port || '8080', 10);
+const port = parseInt(process.env.PORT || '8080', 10);
+const host = '0.0.0.0';
 
-fastify.listen({ port }, function (err, _address) {
+fastify.listen({ port, host }, function (err, _address) {
   if (err) {
     fastify.log.error(err);
     process.exit(1);
