@@ -1,9 +1,6 @@
 import type { ReactNode, ElementType, CSSProperties, ComponentPropsWithoutRef } from 'react';
 import styles from './Grid.module.css';
-
-type Breakpoint = 'base' | 'sm' | 'md' | 'lg' | 'xl';
-
-export type Responsive<T> = T | { [key in Breakpoint]?: T };
+import { type Responsive, BREAKPOINTS, getResponsiveValue } from '../types/responsive';
 
 type GridProps<T extends ElementType> = {
   children: ReactNode;
@@ -17,15 +14,6 @@ type GridProps<T extends ElementType> = {
   as?: T;
 } & ComponentPropsWithoutRef<T>;
 
-const BREAKPOINTS: Breakpoint[] = ['base', 'sm', 'md', 'lg', 'xl'];
-
-function getResponsiveValue<T>(val: Responsive<T> | undefined, bp: Breakpoint): T | undefined {
-  if (val === undefined) return undefined;
-  if (typeof val === 'object' && val !== null && !Array.isArray(val)) {
-    return (val as Record<string, T>)[bp];
-  }
-  return bp === 'base' ? (val as T) : undefined;
-}
 
 export function Grid<T extends ElementType = 'div'>({
   children,

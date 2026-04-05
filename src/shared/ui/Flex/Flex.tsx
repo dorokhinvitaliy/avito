@@ -1,9 +1,6 @@
 import type { ReactNode, ElementType, CSSProperties, ComponentPropsWithoutRef } from 'react';
 import styles from './Flex.module.css';
-
-type Breakpoint = 'base' | 'sm' | 'md' | 'lg' | 'xl';
-
-export type Responsive<T> = T | { [key in Breakpoint]?: T };
+import { type Responsive, BREAKPOINTS, getResponsiveValue } from '../types/responsive';
 
 type Direction = 'row' | 'column' | 'row-reverse' | 'column-reverse';
 type Align = 'start' | 'center' | 'end' | 'baseline' | 'stretch';
@@ -20,15 +17,6 @@ export type FlexProps<T extends ElementType> = {
   as?: T;
 } & ComponentPropsWithoutRef<T>;
 
-const BREAKPOINTS: Breakpoint[] = ['base', 'sm', 'md', 'lg', 'xl'];
-
-function getResponsiveValue<T>(val: Responsive<T> | undefined, bp: Breakpoint): T | undefined {
-  if (val === undefined) return undefined;
-  if (typeof val === 'object' && val !== null && !Array.isArray(val)) {
-    return (val as Record<string, T>)[bp];
-  }
-  return bp === 'base' ? (val as T) : undefined;
-}
 
 const ALIGN_MAP: Record<Align, string> = {
   start: 'flex-start',
