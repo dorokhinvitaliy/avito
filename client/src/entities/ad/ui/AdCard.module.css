@@ -1,0 +1,140 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  border-radius: 22px;
+  overflow: visible;
+  cursor: pointer;
+  width: 100%;
+  padding: 5px;
+  transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.card:hover {
+  background-color: var(--color-bg-secondary);
+  box-shadow: 0 10px 25px -5px var(--color-overlay-sm), 0 8px 10px -6px var(--color-overlay-xs);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: var(--color-bg-subtle);
+  transition: all var(--transition-base);
+}
+
+.mainImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.2s ease;
+}
+
+.pagination {
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-white-overlay-md);
+  backdrop-filter: blur(2px);
+  transition: all 0.2s ease;
+}
+
+.dotActive {
+  background: var(--color-text-inverse);
+  width: 12px;
+  border-radius: 4px;
+}
+
+
+.review {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: var(--color-text-inverse);
+  cursor: pointer;
+  box-shadow: 0 4px 12px var(--color-overlay-sm);
+  overflow: hidden;
+}
+
+.reviewTitle {
+  font-size: 11px;
+  font-weight: 700;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.reviewSubtitle {
+  font-size: 11px;
+  font-weight: 400;
+  opacity: 0.9;
+  line-height: 1.3;
+  margin-top: 2px;
+}
+
+.favoriteButton:hover {
+  transform: scale(1.15);
+  color: var(--color-accent-blue);
+  opacity: 1;
+}
+
+.favoriteButton:active {
+  transform: scale(0.9);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--color-text-primary);
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+
+.titleBadge {
+  margin-left: 6px;
+  vertical-align: middle;
+  padding: 3px 6px;
+}
+
+.priceRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.price {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--color-accent-green-avito);
+  /* Modern green */
+}
+
+.footer {
+  margin-top: 4px;
+  opacity: 0.8;
+}

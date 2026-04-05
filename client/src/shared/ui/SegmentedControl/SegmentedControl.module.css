@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  background-color: var(--color-bg-muted);
+  border-radius: var(--radius-sm);
+  padding: 4px;
+  gap: 4px;
+  width: fit-content;
+}
+
+.item {
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  background-color: transparent;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.item:hover:not(.active) {
+  background-color: var(--color-overlay-xs);
+}
+
+.item.active {
+  background-color: var(--color-black);
+  color: var(--color-text-inverse);
+  box-shadow: 0 2px 4px var(--color-overlay-sm);
+}

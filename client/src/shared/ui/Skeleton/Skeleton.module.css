@@ -1,0 +1,113 @@
+@keyframes pulse {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    110deg,
+    var(--color-skeleton) 25%,
+    var(--color-skeleton-shine) 50%,
+    var(--color-skeleton) 75%
+  );
+  background-size: 200% 100%;
+  animation: pulse 1.5s ease-in-out infinite;
+  border-radius: var(--radius-md);
+}
+
+.text {
+  height: 14px;
+  margin-bottom: 0;
+  border-radius: var(--radius-sm);
+}
+
+.textLg {
+  height: 20px;
+  margin-bottom: 0;
+  border-radius: var(--radius-sm);
+}
+
+.textPrice {
+  height: 24px;
+  margin-bottom: 12px;
+  border-radius: var(--radius-sm);
+}
+
+.badge {
+  flex-shrink: 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  border-radius: 22px;
+  background-color: transparent;
+}
+
+.cardImage {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 20px;
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+}
+
+.cardPriceRow {
+  display: flex;
+  margin-top: 4px;
+}
+
+.listItem {
+  display: flex;
+  align-items: stretch;
+  gap: var(--spacing-6);
+  padding: 8px;
+  border-radius: 22px;
+  background-color: transparent;
+}
+
+.listImage {
+  width: 260px;
+  aspect-ratio: 26/18;
+  flex-shrink: 0;
+  border-radius: 16px;
+}
+
+.listContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  flex: 1;
+  padding: 8px 0;
+}
+
+.listHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.listFooter {
+  margin-top: auto;
+}
+
+@media (max-width: 800px) {
+  .listImage {
+    width: 140px;
+  }
+
+  .listItem {
+    gap: var(--spacing-3);
+  }
+}

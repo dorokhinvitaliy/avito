@@ -1,0 +1,110 @@
+.wrapper {
+  position: relative;
+  min-width: 200px;
+  user-select: none;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px; /* Matching SearchBar approx height */
+  padding: 0 16px;
+  background-color: var(--color-field-bg);
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  gap: 12px;
+}
+
+.trigger:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.trigger.open {
+  background-color: var(--color-bg-secondary);
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-md);
+}
+
+.leftContent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.mainIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+}
+
+.value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-tertiary);
+  margin-right: -4px;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 100%;
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 25px -5px var(--color-overlay-sm), 0 8px 10px -6px var(--color-overlay-xs);
+  border: 1px solid var(--color-border);
+  z-index: 100;
+  padding: 6px;
+  overflow: hidden;
+}
+
+.optionList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.option {
+  padding: 10px 16px;
+  font-size: 14px;
+  color: var(--color-text-primary);
+  border-radius: var(--radius-xl);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.option:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.selected {
+  background-color: var(--color-input-focus-shadow);
+  color: var(--color-accent-blue);
+  font-weight: 700;
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}

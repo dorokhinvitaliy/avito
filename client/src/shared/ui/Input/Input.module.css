@@ -1,0 +1,127 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  padding: 24px 72px 8px 18px;
+  /* Room for floating label at top and several icons at right */
+  border: 1px solid transparent;
+  border-radius: 20px;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  background-color: var(--color-field-bg);
+  /* Muted light grey as in the reference */
+  transition: all var(--transition-fast);
+  outline: none;
+}
+
+/* Hide number arrows/spinners */
+.input[type='number']::-webkit-inner-spin-button,
+.input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.label {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text-secondary);
+  /* Muted grey/lilac */
+  pointer-events: none;
+  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.required {
+  color: var(--color-accent-red);
+  /* Standard red for asterisk */
+  font-weight: var(--font-weight-bold);
+}
+
+/* Floating behavior when field is not empty OR is focused */
+.input:focus + .label,
+.input:not(:placeholder-shown) + .label {
+  top: 10px;
+  transform: translateY(0);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+}
+
+.input:focus {
+  background-color: var(--color-input-focus-bg);
+  border: 1px solid var(--color-input-focus-border);
+  box-shadow: 0 0 0 4px var(--color-input-focus-shadow);
+}
+
+.hasError .input {
+  background-color: var(--color-input-error-bg);
+  border: 1px solid var(--color-input-error-border);
+}
+
+.hasError .input:focus {
+  box-shadow: 0 0 0 4px var(--color-input-error-shadow);
+}
+
+.hasWarning .input {
+  background-color: var(--color-input-warning-bg);
+  border: 1px solid var(--color-input-warning-border);
+}
+
+.suffixWrapper {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 5;
+}
+
+.clearButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  color: var(--color-text-tertiary);
+  transition: all var(--transition-fast);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.clearButton:hover {
+  background-color: var(--color-overlay-xs);
+  color: var(--color-text-secondary);
+}
+
+.error {
+  font-size: var(--font-size-xs);
+  color: var(--color-accent-red);
+  margin-top: 6px;
+  padding-left: 14px;
+}

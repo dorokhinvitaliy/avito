@@ -1,0 +1,52 @@
+import { useEffect, useCallback, useRef, useState } from 'react';
+
+const DRAFT_PREFIX = 'avito_draft_';
+
+export function useDraftStorage<T>(
+  adId: number,
+  _currentData: T | null,
+  onRestore: (data: T) => void,
+) {
+  const key = `${DRAFT_PREFIX}${adId}`;
+  const restoredRef = useRef(false);
+  const [isReady, setIsReady] = useState(false);
+
+  // Try restoring draft on mount
+  useEffect(() => {
+    if (restoredRef.current) return;
+    try {
+      const saved = localStorage.getItem(key);
+      if (saved) {
+        const parsed = JSON.parse(saved) as T;
+        onRestore(parsed);
+        restoredRef.current = true;
+      }
+    } catch {
+      localStorage.removeItem(key);
+    } finally {
+      setIsReady(true);
+    }
+  }, [key, onRestore]);
+
+  const saveDraft = useCallback(
+    (data: T) => {
+      if (!isReady) return; // Don't save before initial check
+      try {
+        localStorage.setItem(key, JSON.stringify(data));
+      } catch {
+        // Storage full, ignore
+      }
+    },
+    [key, isReady],
+  );
+
+  const clearDraft = useCallback(() => {
+    localStorage.removeItem(key);
+  }, [key]);
+
+  const hasDraft = useCallback(() => {
+    return localStorage.getItem(key) !== null;
+  }, [key]);
+
+  return { saveDraft, clearDraft, hasDraft, isReady };
+}

@@ -1,0 +1,143 @@
+.container {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  cursor: help;
+}
+
+.icon {
+  color: var(--color-warning-text); /* Amber color for modified status */
+  opacity: 0.8;
+  transition: all var(--transition-base);
+}
+
+.container:hover .icon {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(0) scale(0.9);
+  background: var(--color-bg-secondary);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-overlay-xs);
+  border-radius: var(--radius-lg);
+  box-shadow: 
+    0 10px 40px -10px var(--color-overlay-md),
+    0 4px 12px -2px var(--color-overlay-xs);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.2, 1, 0.2, 1);
+  min-width: 280px;
+  max-width: min(420px, 90vw);
+}
+
+/* Correct centered arrow */
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid var(--color-bg-secondary);
+}
+
+/* Invisible area to bridging hover gap */
+.tooltip::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: transparent;
+}
+
+.container:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(-10px) scale(1);
+}
+
+.tooltipContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+/* Custom Scrollbar */
+.tooltipContent::-webkit-scrollbar {
+  width: 4px;
+}
+
+.tooltipContent::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tooltipContent::-webkit-scrollbar-thumb {
+  background: var(--color-overlay-sm);
+  border-radius: 10px;
+}
+
+.tooltipContent::-webkit-scrollbar-thumb:hover {
+  background: var(--color-overlay-md);
+}
+
+.label {
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.value {
+  font-size: 14px;
+  color: var(--color-text-primary);
+  font-weight: 500;
+  line-height: 1.5;
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.resetButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background-color: var(--color-bg-muted);
+  color: var(--color-accent-blue);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  width: 100%;
+}
+
+.resetButton:hover {
+  background-color: var(--color-accent-blue);
+  color: var(--color-text-inverse);
+  box-shadow: 0 4px 12px var(--color-input-focus-border);
+}
+
+.resetButton:active {
+  transform: scale(0.98);
+}
+

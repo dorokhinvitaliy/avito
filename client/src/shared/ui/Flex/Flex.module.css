@@ -1,0 +1,66 @@
+.flex {
+  display: flex;
+
+  /* Значения по умолчанию (мобильные) */
+  flex-direction: var(--dir-base, row);
+  align-items: var(--align-base, stretch);
+  justify-content: var(--just-base, flex-start);
+  flex-wrap: var(--wrap-base, nowrap);
+  gap: var(--gap-base, 0);
+}
+
+@media (min-width: 640px) {
+  .flex {
+    flex-direction: var(--dir-sm, var(--dir-base, row));
+    align-items: var(--align-sm, var(--align-base, stretch));
+    justify-content: var(--just-sm, var(--just-base, flex-start));
+    flex-wrap: var(--wrap-sm, var(--wrap-base, nowrap));
+    gap: var(--gap-sm, var(--gap-base, 0));
+  }
+}
+
+@media (min-width: 768px) {
+  .flex {
+    flex-direction: var(--dir-md, var(--dir-sm, var(--dir-base, row)));
+    align-items: var(--align-md, var(--align-sm, var(--align-base, stretch)));
+    justify-content: var(--just-md, var(--just-sm, var(--just-base, flex-start)));
+    flex-wrap: var(--wrap-md, var(--wrap-sm, var(--wrap-base, nowrap)));
+    gap: var(--gap-md, var(--gap-sm, var(--gap-base, 0)));
+  }
+}
+
+@media (min-width: 1024px) {
+  .flex {
+    flex-direction: var(--dir-lg, var(--dir-md, var(--dir-sm, var(--dir-base, row))));
+    align-items: var(--align-lg, var(--align-md, var(--align-sm, var(--align-base, stretch))));
+    justify-content: var(--just-lg, var(--just-md, var(--just-sm, var(--just-base, flex-start))));
+    flex-wrap: var(--wrap-lg, var(--wrap-md, var(--wrap-sm, var(--wrap-base, nowrap))));
+    gap: var(--gap-lg, var(--gap-md, var(--gap-sm, var(--gap-base, 0))));
+  }
+}
+
+@media (min-width: 1280px) {
+  .flex {
+    flex-direction: var(
+      --dir-xl,
+      var(--dir-lg, var(--dir-md, var(--dir-sm, var(--dir-base, row))))
+    );
+    align-items: var(
+      --align-xl,
+      var(--align-lg, var(--align-md, var(--align-sm, var(--align-base, stretch))))
+    );
+    justify-content: var(
+      --just-xl,
+      var(--just-lg, var(--just-md, var(--just-sm, var(--just-base, flex-start))))
+    );
+    flex-wrap: var(
+      --wrap-xl,
+      var(--wrap-lg, var(--wrap-md, var(--wrap-sm, var(--wrap-base, nowrap))))
+    );
+    gap: var(--gap-xl, var(--gap-lg, var(--gap-md, var(--gap-sm, var(--gap-base, 0)))));
+  }
+}
+
+.fullWidth {
+  width: 100%;
+}

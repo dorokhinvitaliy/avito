@@ -1,0 +1,26 @@
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-skeleton-shine);
+  border-radius: var(--radius-md);
+  min-height: 80px;
+}
+
+.icon {
+  width: 48px;
+  height: 48px;
+  opacity: 0.4;
+}
+
+.small .icon {
+  width: 32px;
+  height: 32px;
+}
+
+.large .icon {
+  width: 80px;
+  height: 80px;
+}

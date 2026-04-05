@@ -1,0 +1,11 @@
+.sortSelect {
+  min-width: 200px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .sortSelect {
+    min-width: 100%;
+    width: 100%;
+  }
+}

@@ -1,0 +1,145 @@
+:root {
+  /* Colors — Light theme */
+  --color-bg-primary: #f8f9fa;
+  --color-bg-secondary: #ffffff;
+  --color-bg-elevated: #ffffff;
+  --color-bg-muted: #f1f1f1;
+  --color-bg-hover: #f1f1f1;
+  --color-bg-active: #eeeeee;
+  --color-bg-warning: #fff8ed;
+  --color-bg-error: #fef2f2;
+  --color-bg-success: #f0fdf4;
+  --color-field-bg: #f6f6f9;
+
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #6b7280;
+  --color-text-tertiary: #9ca3af;
+  --color-text-inverse: #ffffff;
+
+  --color-border: #e5e7eb;
+  --color-border-hover: #d1d5db;
+  --color-border-focus: #4c8bf5;
+  --color-border-error: #ef4444;
+  --color-border-warning: #f59e0b;
+
+  --color-accent-blue: #4c8bf5;
+  --color-accent-blue-hover: #3b7ae0;
+  --color-accent-blue-active: #2d6ad0;
+  --color-accent-orange: #f59e0b;
+  --color-accent-orange-light: #fef3c7;
+  --color-accent-red: #ef4444;
+  --color-accent-green: #22c55e;
+
+  --color-badge-auto: #e0f2fe;
+  --color-badge-auto-text: #2563eb;
+  --color-badge-electronics: #16b0c430;
+  --color-badge-electronics-text: #13b0c4;
+  --color-badge-real-estate: #fef3c7;
+  --color-badge-real-estate-text: #d97706;
+
+  --color-skeleton: #e5e7eb;
+  --color-skeleton-shine: #f3f4f6;
+
+  /* Brand and Supplemental Colors */
+  --color-black: #000000;
+  --color-accent-green-avito: #00a650;
+  --color-warning-text: #d97706;
+  --color-warning-dark: #b45309;
+  --color-error-hover: #dc2626;
+  --color-bg-subtle: #f5f5f5;
+  --color-overlay-xs: rgba(0, 0, 0, 0.05);
+  --color-overlay-sm: rgba(0, 0, 0, 0.1);
+  --color-overlay-md: rgba(0, 0, 0, 0.4);
+  --color-overlay-lg: rgba(0, 0, 0, 0.6);
+  --color-white-overlay-xs: rgba(255, 255, 255, 0.1);
+  --color-white-overlay-sm: rgba(255, 255, 255, 0.25);
+  --color-white-overlay-md: rgba(255, 255, 255, 0.45);
+  --color-white-overlay-lg: rgba(255, 255, 255, 0.7);
+  --color-overlay-subtle: rgba(0, 0, 0, 0.2);
+
+  /* AI Special Colors */
+  --color-ai-bg: rgba(245, 158, 11, 0.08);
+  --color-ai-border: rgba(245, 158, 11, 0.15);
+  --color-ai-shadow: rgba(245, 158, 11, 0.25);
+
+  /* Input States */
+  --color-input-focus-bg: #fbfbff;
+  --color-input-focus-border: rgba(76, 139, 245, 0.3);
+  --color-input-focus-shadow: rgba(76, 139, 245, 0.1);
+  --color-input-error-bg: rgba(239, 68, 68, 0.05);
+  --color-input-error-border: rgba(239, 68, 68, 0.2);
+  --color-input-error-shadow: rgba(239, 68, 68, 0.1);
+  --color-input-warning-bg: rgba(245, 158, 11, 0.05);
+  --color-input-warning-border: rgba(245, 158, 11, 0.2);
+
+  /* Toast and Glassmorphism */
+  --color-glass-bg: rgba(255, 255, 255, 0.75);
+  --color-glass-border: rgba(255, 255, 255, 0.45);
+  --color-success-bg-subtle: rgba(0, 166, 80, 0.1);
+  --color-success-border-subtle: rgba(0, 166, 80, 0.2);
+  --color-error-bg-subtle: rgba(239, 68, 68, 0.1);
+  --color-error-border-subtle: rgba(239, 68, 68, 0.2);
+
+  /* Typography */
+  --font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.8125rem;
+  --font-size-base: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+
+  /* Spacing */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+
+  /* Borders */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 22px;
+  --radius-xl: 30px;
+  --radius-pill: 100px;
+  --radius-full: 9999px;
+
+  /* Specific Colors */
+  --color-checkbox-bg: #e2e8f0;
+  --color-checkbox-active: #111827;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.05), 0 20px 40px rgba(0, 0, 0, 0.03);
+  --shadow-tooltip: 0 4px 20px rgba(0, 0, 0, 0.12);
+  --shadow-input: 0 0 0 1px var(--color-border), 0 2px 4px rgba(0, 0, 0, 0.02);
+  --shadow-input-focus: 0 0 0 1px var(--color-border-focus), 0 4px 12px rgba(0, 0, 0, 0.05);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 300ms ease;
+
+  /* Layout */
+  --content-max-width: 1400px;
+  --container-padding: 1.5rem;
+  --sidebar-width: 260px;
+  --header-height: 64px;
+}
