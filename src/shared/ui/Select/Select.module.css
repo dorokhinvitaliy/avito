@@ -14,7 +14,7 @@
   background-color: var(--color-field-bg);
   border: 1px solid transparent;
   border-radius: 20px;
-  font-size: 16px;
+  font-size: var(--font-size-md);
   color: var(--color-text-primary);
   cursor: pointer;
   transition: all var(--transition-fast);
@@ -28,9 +28,9 @@
 }
 
 .selectTrigger.open {
-  background-color: #fbfbff;
-  border: 1px solid rgba(76, 139, 245, 0.3);
-  box-shadow: 0 0 0 4px rgba(76, 139, 245, 0.1);
+  background-color: var(--color-input-focus-bg);
+  border: 1px solid var(--color-input-focus-border);
+  box-shadow: 0 0 0 4px var(--color-input-focus-shadow);
 }
 
 .label {
@@ -38,9 +38,9 @@
   left: 18px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 16px;
-  font-weight: 400;
-  color: #7d7d8e;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text-secondary);
   pointer-events: none;
   transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
   display: flex;
@@ -51,20 +51,20 @@
 .isFloating .label {
   top: 10px;
   transform: translateY(0);
-  font-size: 11px;
-  font-weight: 600;
-  color: #8b8ba8;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
 }
 
 .required {
-  color: #ef4444;
-  font-weight: 700;
+  color: var(--color-accent-red);
+  font-weight: var(--font-weight-bold);
 }
 
 .selectedValue {
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
-  margin: -1px 0;
+  line-height: 1;
 }
 
 .placeholderHide {
@@ -75,7 +75,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #7d7d8e;
+  color: var(--color-text-secondary);
   padding: 4px;
 }
 
@@ -96,13 +96,13 @@
 }
 
 .errorBorder {
-  background-color: rgba(239, 68, 68, 0.05);
-  border: 1px solid rgba(239, 68, 68, 0.2) !important;
+  background-color: var(--color-input-error-bg);
+  border: 1px solid var(--color-input-error-border) !important;
 }
 
 .error {
-  font-size: 12px;
-  color: #ef4444;
+  font-size: var(--font-size-xs);
+  color: var(--color-accent-red);
   margin-top: 6px;
   padding-left: 14px;
 }
@@ -118,11 +118,11 @@
   top: 8px;
   left: 0;
   width: 100%;
-  background-color: #fff;
+  background-color: var(--color-bg-secondary);
   border-radius: var(--radius-lg);
   box-shadow:
-    0 10px 25px -5px rgba(0, 0, 0, 0.1),
-    0 8px 10px -6px rgba(0, 0, 0, 0.02);
+    0 10px 25px -5px var(--color-overlay-sm),
+    0 8px 10px -6px var(--color-overlay-xs);
   border: 1px solid var(--color-border);
   overflow: hidden;
   padding: 6px;
@@ -147,12 +147,12 @@
 }
 
 .option:hover {
-  background-color: #f1f1f5;
+  background-color: var(--color-bg-hover);
 }
 
 .selectedOption {
-  background-color: #f1f1f5;
-  font-weight: 600;
+  background-color: var(--color-bg-hover);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-accent-blue);
 }
 
@@ -163,6 +163,6 @@
 }
 
 .hasWarning .selectTrigger {
-  background-color: rgba(245, 158, 11, 0.05);
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  background-color: var(--color-input-warning-bg);
+  border: 1px solid var(--color-input-warning-border);
 }

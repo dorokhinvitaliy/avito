@@ -77,8 +77,14 @@ export function AdViewPage() {
 
       <Stack gap={6}>
         {/* Header Section */}
-        <Flex justify="between" align="start" wrap className={styles.topSection}>
-          <Stack gap={4} align="start">
+        <Flex
+          direction={{ base: 'column', sm: 'row' }}
+          justify="between"
+          align={{ base: 'stretch', sm: 'start' }}
+          wrap
+          className={styles.topSection}
+        >
+          <Flex direction={{ base: 'column', sm: 'column' }} gap={4} align="start">
             <Typography variant="h2">{item.title}</Typography>
             <Button
               variant="primary"
@@ -87,12 +93,18 @@ export function AdViewPage() {
             >
               Редактировать
             </Button>
-          </Stack>
-          <Stack align="end" gap={2}>
+          </Flex>
+          <Flex
+            direction={{ base: 'row', sm: 'column' }}
+            justify={'between'}
+            align="end"
+            gap={2}
+            wrap
+          >
             <Typography variant="h2" weight="bold">
               {formatPrice(item.price)}
             </Typography>
-            <Flex direction="column" align="end">
+            <Flex direction="column" align="end" gap={1}>
               <Typography variant="caption" color="tertiary">
                 Опубликовано: {formatDate(item.createdAt)}
               </Typography>
@@ -102,7 +114,7 @@ export function AdViewPage() {
                 </Typography>
               )}
             </Flex>
-          </Stack>
+          </Flex>
         </Flex>
 
         <div className={styles.mainContent}>

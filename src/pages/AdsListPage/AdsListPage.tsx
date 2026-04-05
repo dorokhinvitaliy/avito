@@ -101,7 +101,11 @@ export function AdsListPage() {
         <main className={styles.main}>
           <Stack gap={layout === 'grid' ? 4 : 3}>
             {isFetching && (
-              <Grid cols={layout === 'grid' ? 4 : 1} gap={layout === 'grid' ? 4 : 3} className={layout === 'grid' ? styles.responsiveGrid : ''}>
+              <Grid
+                cols={layout === 'grid' ? 4 : 1}
+                minColWidth={layout === 'grid' ? 180 : undefined}
+                gap={layout === 'grid' ? { base: 2, sm: 4 } : 3}
+              >
                 {Array.from({ length: ITEMS_PER_PAGE }).map((_, i) =>
                   layout === 'grid' ? <SkeletonCard key={i} /> : <SkeletonListItem key={i} />,
                 )}
@@ -127,7 +131,11 @@ export function AdsListPage() {
             )}
 
             {!isFetching && !isError && sortedItems.length > 0 && (
-              <Grid cols={layout === 'grid' ? 4 : 1} gap={layout === 'grid' ? 4 : 3} className={layout === 'grid' ? styles.responsiveGrid : ''}>
+              <Grid
+                cols={layout === 'grid' ? 4 : 1}
+                minColWidth={layout === 'grid' ? 180 : undefined}
+                gap={layout === 'grid' ? { base: 2, sm: 4 } : 3}
+              >
                 {sortedItems.map((item) =>
                   layout === 'grid' ? (
                     <AdCard key={item.id} item={item} />

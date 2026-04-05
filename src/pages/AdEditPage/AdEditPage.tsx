@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   fetchItem,
@@ -229,7 +229,7 @@ export function AdEditPage() {
       {hasDraftRestored && (
         <Flex align="center" gap={2} className={styles.draftNotice}>
           <Save size={16} />
-          <Typography variant="body2" weight="semibold" color="inverse">
+          <Typography variant="body2" weight="semibold" color="inherit">
             Восстановлен черновик. Изменения будут сохраняться автоматически.
           </Typography>
         </Flex>

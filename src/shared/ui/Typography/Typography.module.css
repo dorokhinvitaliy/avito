@@ -10,35 +10,84 @@
 }
 
 /* Sizes */
-.size-xs { font-size: var(--font-size-xs); }
-.size-sm { font-size: var(--font-size-sm); }
-.size-base { font-size: var(--font-size-base); }
-.size-md { font-size: var(--font-size-md); }
-.size-lg { font-size: var(--font-size-lg); }
-.size-xl { font-size: var(--font-size-xl); }
-.size-2xl { font-size: var(--font-size-2xl); }
-.size-3xl { font-size: var(--font-size-3xl); }
+.size-xs {
+  font-size: var(--font-size-xs);
+}
+.size-sm {
+  font-size: var(--font-size-sm);
+}
+.size-base {
+  font-size: var(--font-size-base);
+}
+.size-md {
+  font-size: var(--font-size-md);
+}
+.size-lg {
+  font-size: var(--font-size-lg);
+}
+.size-xl {
+  font-size: var(--font-size-xl);
+}
+.size-2xl {
+  font-size: var(--font-size-2xl);
+}
+.size-3xl {
+  font-size: var(--font-size-3xl);
+}
 
 /* Weights */
-.weight-normal { font-weight: var(--font-weight-normal); }
-.weight-medium { font-weight: var(--font-weight-medium); }
-.weight-semibold { font-weight: var(--font-weight-semibold); }
-.weight-bold { font-weight: var(--font-weight-bold); }
+.weight-normal {
+  font-weight: var(--font-weight-normal);
+}
+.weight-medium {
+  font-weight: var(--font-weight-medium);
+}
+.weight-semibold {
+  font-weight: var(--font-weight-semibold);
+}
+.weight-bold {
+  font-weight: var(--font-weight-bold);
+}
 
 /* Colors */
-.color-primary { color: var(--color-text-primary); }
-.color-secondary { color: var(--color-text-secondary); }
-.color-tertiary { color: var(--color-text-tertiary); }
-.color-inverse { color: var(--color-text-inverse); }
-.color-error { color: var(--color-accent-red); }
-.color-warning { color: var(--color-accent-orange); }
-.color-success { color: var(--color-accent-green); }
+.color-primary {
+  color: var(--color-text-primary);
+}
+.color-secondary {
+  color: var(--color-text-secondary);
+}
+.color-tertiary {
+  color: var(--color-text-tertiary);
+}
+.color-inverse {
+  color: var(--color-text-inverse);
+}
+.color-error {
+  color: var(--color-accent-red);
+}
+.color-warning {
+  color: var(--color-accent-orange);
+}
+.color-success {
+  color: var(--color-accent-green);
+}
+.color-inherit {
+  color: inherit;
+}
 
 /* Align */
-.align-left { text-align: left; }
-.align-center { text-align: center; }
-.align-right { text-align: right; }
-.align-justify { text-align: justify; }
+.align-left {
+  text-align: left;
+}
+.align-center {
+  text-align: center;
+}
+.align-right {
+  text-align: right;
+}
+.align-justify {
+  text-align: justify;
+}
 
 /* Variants Defaults (can be overridden by props) */
 .variant-h1 {

@@ -1,61 +1,64 @@
 .flex {
   display: flex;
+
+  /* Значения по умолчанию (мобильные) */
+  flex-direction: var(--dir-base, row);
+  align-items: var(--align-base, stretch);
+  justify-content: var(--just-base, flex-start);
+  flex-wrap: var(--wrap-base, nowrap);
+  gap: var(--gap-base, 0);
 }
 
-.direction-row {
-  flex-direction: row;
+@media (min-width: 640px) {
+  .flex {
+    flex-direction: var(--dir-sm, var(--dir-base, row));
+    align-items: var(--align-sm, var(--align-base, stretch));
+    justify-content: var(--just-sm, var(--just-base, flex-start));
+    flex-wrap: var(--wrap-sm, var(--wrap-base, nowrap));
+    gap: var(--gap-sm, var(--gap-base, 0));
+  }
 }
 
-.direction-column {
-  flex-direction: column;
+@media (min-width: 768px) {
+  .flex {
+    flex-direction: var(--dir-md, var(--dir-sm, var(--dir-base, row)));
+    align-items: var(--align-md, var(--align-sm, var(--align-base, stretch)));
+    justify-content: var(--just-md, var(--just-sm, var(--just-base, flex-start)));
+    flex-wrap: var(--wrap-md, var(--wrap-sm, var(--wrap-base, nowrap)));
+    gap: var(--gap-md, var(--gap-sm, var(--gap-base, 0)));
+  }
 }
 
-.align-start {
-  align-items: flex-start;
+@media (min-width: 1024px) {
+  .flex {
+    flex-direction: var(--dir-lg, var(--dir-md, var(--dir-sm, var(--dir-base, row))));
+    align-items: var(--align-lg, var(--align-md, var(--align-sm, var(--align-base, stretch))));
+    justify-content: var(--just-lg, var(--just-md, var(--just-sm, var(--just-base, flex-start))));
+    flex-wrap: var(--wrap-lg, var(--wrap-md, var(--wrap-sm, var(--wrap-base, nowrap))));
+    gap: var(--gap-lg, var(--gap-md, var(--gap-sm, var(--gap-base, 0))));
+  }
 }
 
-.align-center {
-  align-items: center;
-}
-
-.align-end {
-  align-items: flex-end;
-}
-
-.align-baseline {
-  align-items: baseline;
-}
-
-.align-stretch {
-  align-items: stretch;
-}
-
-.justify-start {
-  justify-content: flex-start;
-}
-
-.justify-center {
-  justify-content: center;
-}
-
-.justify-end {
-  justify-content: flex-end;
-}
-
-.justify-between {
-  justify-content: space-between;
-}
-
-.justify-around {
-  justify-content: space-around;
-}
-
-.justify-evenly {
-  justify-content: space-evenly;
-}
-
-.wrap {
-  flex-wrap: wrap;
+@media (min-width: 1280px) {
+  .flex {
+    flex-direction: var(
+      --dir-xl,
+      var(--dir-lg, var(--dir-md, var(--dir-sm, var(--dir-base, row))))
+    );
+    align-items: var(
+      --align-xl,
+      var(--align-lg, var(--align-md, var(--align-sm, var(--align-base, stretch))))
+    );
+    justify-content: var(
+      --just-xl,
+      var(--just-lg, var(--just-md, var(--just-sm, var(--just-base, flex-start))))
+    );
+    flex-wrap: var(
+      --wrap-xl,
+      var(--wrap-lg, var(--wrap-md, var(--wrap-sm, var(--wrap-base, nowrap))))
+    );
+    gap: var(--gap-xl, var(--gap-lg, var(--gap-md, var(--gap-sm, var(--gap-base, 0)))));
+  }
 }
 
 .fullWidth {

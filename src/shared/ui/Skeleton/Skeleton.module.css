@@ -78,7 +78,7 @@
 
 .listImage {
   width: 260px;
-  height: 180px;
+  aspect-ratio: 26/18;
   flex-shrink: 0;
   border-radius: 16px;
 }
@@ -100,4 +100,14 @@
 
 .listFooter {
   margin-top: auto;
+}
+
+@media (max-width: 800px) {
+  .listImage {
+    width: 140px;
+  }
+
+  .listItem {
+    gap: var(--spacing-3);
+  }
 }

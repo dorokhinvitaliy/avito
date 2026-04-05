@@ -4,11 +4,15 @@
   padding: var(--spacing-8) var(--container-padding);
 }
 
-.header {
-  margin-bottom: var(--spacing-6);
+@media (max-width: 600px) {
+  .page {
+    padding: var(--spacing-8) 0;
+  }
 }
 
-
+.header {
+  padding: var(--spacing-5);
+}
 
 .content {
   display: flex;
@@ -29,8 +33,6 @@
   color: var(--color-text-tertiary);
   opacity: 0.6;
 }
-
-
 
 /* Base grid for responsive behavior */
 .responsiveGrid {

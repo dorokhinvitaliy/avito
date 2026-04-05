@@ -4,7 +4,7 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-  background-color: #f3f4f6;
+  background-color: var(--color-skeleton-shine);
   border-radius: var(--radius-md);
   min-height: 80px;
 }

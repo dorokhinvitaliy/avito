@@ -21,11 +21,11 @@
 }
 
 .item:hover:not(.active) {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--color-overlay-xs);
 }
 
 .item.active {
-  background-color: #222;
-  color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-black);
+  color: var(--color-text-inverse);
+  box-shadow: 0 2px 4px var(--color-overlay-sm);
 }

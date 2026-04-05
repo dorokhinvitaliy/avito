@@ -11,6 +11,12 @@
   top: var(--spacing-4);
 }
 
+@media (max-width: 640px) {
+  .panel {
+    position: relative;
+  }
+}
+
 .title {
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);

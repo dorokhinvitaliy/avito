@@ -4,7 +4,15 @@ import styles from './Typography.module.css';
 export type TypographyVariant = 'h1' | 'h2' | 'h3' | 'h4' | 'body1' | 'body2' | 'caption';
 export type TypographySize = 'xs' | 'sm' | 'base' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 export type TypographyWeight = 'normal' | 'medium' | 'semibold' | 'bold';
-export type TypographyColor = 'primary' | 'secondary' | 'tertiary' | 'inverse' | 'error' | 'warning' | 'success';
+export type TypographyColor =
+  | 'primary'
+  | 'secondary'
+  | 'tertiary'
+  | 'inverse'
+  | 'error'
+  | 'warning'
+  | 'success'
+  | 'inherit';
 export type TypographyAlign = 'left' | 'center' | 'right' | 'justify';
 
 interface TypographyBaseProps {
@@ -55,7 +63,9 @@ export function Typography<T extends ElementType = 'span'>({
     align ? styles[`align-${align}`] : '',
     noMargin ? styles.noMargin : '',
     className,
-  ].filter(Boolean).join(' ');
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <Component className={classes} {...props}>

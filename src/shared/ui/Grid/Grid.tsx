@@ -1,17 +1,31 @@
 import type { ReactNode, ElementType, CSSProperties, ComponentPropsWithoutRef } from 'react';
 import styles from './Grid.module.css';
 
+type Breakpoint = 'base' | 'sm' | 'md' | 'lg' | 'xl';
+
+export type Responsive<T> = T | { [key in Breakpoint]?: T };
+
 type GridProps<T extends ElementType> = {
   children: ReactNode;
-  cols?: number;
-  minColWidth?: number | string;
+  cols?: Responsive<number>;
+  minColWidth?: Responsive<number | string>;
   autoMode?: 'auto-fill' | 'auto-fit';
-  gap?: number | string;
+  gap?: Responsive<number | string>;
   align?: 'start' | 'center' | 'end' | 'stretch';
   justify?: 'start' | 'center' | 'end' | 'stretch' | 'between';
   fullWidth?: boolean;
   as?: T;
 } & ComponentPropsWithoutRef<T>;
+
+const BREAKPOINTS: Breakpoint[] = ['base', 'sm', 'md', 'lg', 'xl'];
+
+function getResponsiveValue<T>(val: Responsive<T> | undefined, bp: Breakpoint): T | undefined {
+  if (val === undefined) return undefined;
+  if (typeof val === 'object' && val !== null && !Array.isArray(val)) {
+    return (val as Record<string, T>)[bp];
+  }
+  return bp === 'base' ? (val as T) : undefined;
+}
 
 export function Grid<T extends ElementType = 'div'>({
   children,
@@ -39,18 +53,26 @@ export function Grid<T extends ElementType = 'div'>({
     .filter(Boolean)
     .join(' ');
 
-  let gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
+  const cssVars: Record<string, string> = {};
 
-  if (minColWidth) {
-    const minWidth = typeof minColWidth === 'number' ? `${minColWidth}px` : minColWidth;
-    gridTemplateColumns = `repeat(${autoMode}, minmax(${minWidth}, 1fr))`;
-  }
+  BREAKPOINTS.forEach((bp) => {
+    const bpGap = getResponsiveValue(gap, bp);
+    if (bpGap !== undefined) {
+      cssVars[`--gap-${bp}`] = typeof bpGap === 'number' ? `var(--spacing-${bpGap})` : bpGap;
+    }
 
-  const combinedStyle: CSSProperties = {
-    gridTemplateColumns,
-    gap: typeof gap === 'number' ? `var(--spacing-${gap})` : gap,
-    ...style,
-  };
+    const bpCols = getResponsiveValue(cols, bp);
+    const bpMinColWidth = getResponsiveValue(minColWidth, bp);
+
+    if (bpMinColWidth !== undefined) {
+      const min = typeof bpMinColWidth === 'number' ? `${bpMinColWidth}px` : bpMinColWidth;
+      cssVars[`--cols-${bp}`] = `repeat(${autoMode}, minmax(${min}, 1fr))`;
+    } else if (bpCols !== undefined) {
+      cssVars[`--cols-${bp}`] = `repeat(${bpCols}, minmax(0, 1fr))`;
+    }
+  });
+
+  const combinedStyle = { ...cssVars, ...style } as CSSProperties;
 
   return (
     <Component className={classes} style={combinedStyle} {...props}>

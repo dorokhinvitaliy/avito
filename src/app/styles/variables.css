@@ -32,13 +32,53 @@
 
   --color-badge-auto: #e0f2fe;
   --color-badge-auto-text: #2563eb;
-  --color-badge-electronics: #f3e8ff;
+  --color-badge-electronics: #16b0c430;
   --color-badge-electronics-text: #13b0c4;
   --color-badge-real-estate: #fef3c7;
   --color-badge-real-estate-text: #d97706;
 
   --color-skeleton: #e5e7eb;
   --color-skeleton-shine: #f3f4f6;
+
+  /* Brand and Supplemental Colors */
+  --color-black: #000000;
+  --color-accent-green-avito: #00a650;
+  --color-warning-text: #d97706;
+  --color-warning-dark: #b45309;
+  --color-error-hover: #dc2626;
+  --color-bg-subtle: #f5f5f5;
+  --color-overlay-xs: rgba(0, 0, 0, 0.05);
+  --color-overlay-sm: rgba(0, 0, 0, 0.1);
+  --color-overlay-md: rgba(0, 0, 0, 0.4);
+  --color-overlay-lg: rgba(0, 0, 0, 0.6);
+  --color-white-overlay-xs: rgba(255, 255, 255, 0.1);
+  --color-white-overlay-sm: rgba(255, 255, 255, 0.25);
+  --color-white-overlay-md: rgba(255, 255, 255, 0.45);
+  --color-white-overlay-lg: rgba(255, 255, 255, 0.7);
+  --color-overlay-subtle: rgba(0, 0, 0, 0.2);
+
+  /* AI Special Colors */
+  --color-ai-bg: rgba(245, 158, 11, 0.08);
+  --color-ai-border: rgba(245, 158, 11, 0.15);
+  --color-ai-shadow: rgba(245, 158, 11, 0.25);
+
+  /* Input States */
+  --color-input-focus-bg: #fbfbff;
+  --color-input-focus-border: rgba(76, 139, 245, 0.3);
+  --color-input-focus-shadow: rgba(76, 139, 245, 0.1);
+  --color-input-error-bg: rgba(239, 68, 68, 0.05);
+  --color-input-error-border: rgba(239, 68, 68, 0.2);
+  --color-input-error-shadow: rgba(239, 68, 68, 0.1);
+  --color-input-warning-bg: rgba(245, 158, 11, 0.05);
+  --color-input-warning-border: rgba(245, 158, 11, 0.2);
+
+  /* Toast and Glassmorphism */
+  --color-glass-bg: rgba(255, 255, 255, 0.75);
+  --color-glass-border: rgba(255, 255, 255, 0.45);
+  --color-success-bg-subtle: rgba(0, 166, 80, 0.1);
+  --color-success-border-subtle: rgba(0, 166, 80, 0.2);
+  --color-error-bg-subtle: rgba(239, 68, 68, 0.1);
+  --color-error-border-subtle: rgba(239, 68, 68, 0.2);
 
   /* Typography */
   --font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;

@@ -35,12 +35,12 @@
 }
 
 .secondary {
-  background-color: #e5e7eb;
+  background-color: var(--color-border);
   color: var(--color-text-primary);
 }
 
 .secondary:hover:not(:disabled) {
-  background-color: #d1d5db;
+  background-color: var(--color-border-hover);
 }
 
 .ghost {
@@ -58,24 +58,24 @@
 }
 
 .danger:hover:not(:disabled) {
-  background-color: #dc2626;
+  background-color: var(--color-error-hover);
 }
 
 .ai {
-  background-color: rgba(245, 158, 11, 0.08);
+  background-color: var(--color-ai-bg);
   color: var(--color-accent-orange);
   padding: 8px 18px;
   font-size: var(--font-size-sm);
   font-weight: 600;
-  border: 1px solid rgba(245, 158, 11, 0.15);
+  border: 1px solid var(--color-ai-border);
   border-radius: var(--radius-pill);
 }
 
 .ai:hover:not(:disabled) {
   background-color: var(--color-accent-orange);
-  color: #fff;
+  color: var(--color-text-inverse);
   border-color: var(--color-accent-orange);
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+  box-shadow: 0 4px 12px var(--color-ai-shadow);
 }
 
 .ai:active:not(:disabled) {

@@ -1,12 +1,13 @@
 .searchWrapper {
   flex: 1;
+  min-width: min(250px, 100%);
 }
 
 .searchBar {
   position: relative;
   display: flex;
   align-items: center;
-  z-index: 4;
+  z-index: 12;
 }
 
 .input {
@@ -29,7 +30,7 @@
   background-color: var(--color-bg-secondary);
   box-shadow:
     0 0 0 1px var(--color-border),
-    0 4px 12px rgba(0, 0, 0, 0.05);
+    0 4px 12px var(--color-overlay-xs);
 }
 
 .icon {
@@ -48,8 +49,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #00000036;
-  z-index: 3;
+  background-color: var(--color-overlay-subtle);
+  z-index: 11;
   opacity: 0;
   pointer-events: none;
   transition: all 0.3s ease;

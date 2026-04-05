@@ -20,7 +20,7 @@
   aspect-ratio: 4 / 3;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  background: #f3f4f6;
+  background: var(--color-skeleton-shine);
 }
 
 /* Each slide */
@@ -43,9 +43,9 @@
   inset: 0;
   background: linear-gradient(
     110deg,
-    #f3f4f6 25%,
-    #e8eaed 50%,
-    #f3f4f6 75%
+    var(--color-skeleton-shine) 25%,
+    var(--color-skeleton) 50%,
+    var(--color-skeleton-shine) 75%
   );
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
@@ -73,15 +73,15 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--color-white-overlay-lg);
   backdrop-filter: blur(8px);
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #1f2937;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: var(--color-text-primary);
+  box-shadow: 0 2px 8px var(--color-overlay-sm);
   opacity: 0;
   transition: all 0.2s ease;
 }
@@ -91,8 +91,8 @@
 }
 
 .navButton:hover {
-  background: #fff;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  background: var(--color-bg-secondary);
+  box-shadow: 0 4px 16px var(--color-overlay-sm);
   transform: translateY(-50%) scale(1.05);
 }
 
@@ -114,11 +114,11 @@
   bottom: 12px;
   left: 12px;
   padding: 4px 10px;
-  background: rgba(0, 0, 0, 0.55);
+  background: var(--color-overlay-lg);
   backdrop-filter: blur(4px);
-  color: #fff;
+  color: var(--color-text-inverse);
   font-size: 13px;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   border-radius: 8px;
   z-index: 3;
 }
@@ -157,7 +157,7 @@
 .thumbActive {
   opacity: 1;
   border-color: var(--color-accent-blue);
-  box-shadow: 0 0 0 2px rgba(76, 139, 245, 0.2);
+  box-shadow: 0 0 0 2px var(--color-input-focus-border);
 }
 
 .thumbImage {

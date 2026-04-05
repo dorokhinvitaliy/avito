@@ -46,34 +46,35 @@
 .mainContent {
   display: flex;
   gap: var(--spacing-8);
+  flex-wrap: wrap;
 }
 
 .imageSection {
-  flex: 0 0 420px;
+  flex: 1 1 330px;
 }
 
 .infoSection {
-  flex: 1;
+  flex: 1 1 310px;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-6);
 }
 
 .warningCard {
-  background-color: rgba(245, 158, 11, 0.08);
-  border: 1px solid rgba(245, 158, 11, 0.15);
+  background-color: var(--color-ai-bg);
+  border: 1px solid var(--color-ai-border);
 }
 
 .warningIconColor {
-  color: #d97706;
+  color: var(--color-warning-text);
 }
 
 .warningTitle {
-  color: #b45309;
+  color: var(--color-warning-dark);
 }
 
 .warningText {
-  color: #d97706;
+  color: var(--color-warning-text);
   opacity: 0.9;
 }
 
@@ -84,7 +85,7 @@
 .warningList li {
   list-style: disc;
   margin-bottom: 6px;
-  color: #d97706;
+  color: var(--color-warning-text);
 }
 
 .specsTitle {
@@ -135,6 +136,12 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

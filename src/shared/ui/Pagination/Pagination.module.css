@@ -28,9 +28,9 @@
 }
 
 .active {
-  background-color: #111;
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-black);
+  color: var(--color-text-inverse);
+  box-shadow: 0 4px 12px var(--color-overlay-sm);
 }
 
 .navButton:disabled {
@@ -39,6 +39,6 @@
 }
 
 .navButton {
-  font-size: 20px;
+  font-size: var(--font-size-xl);
   line-height: 0;
 }

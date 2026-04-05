@@ -1,16 +1,51 @@
-import type { ReactNode, ElementType, ComponentPropsWithoutRef } from 'react';
+import type { ReactNode, ElementType, CSSProperties, ComponentPropsWithoutRef } from 'react';
 import styles from './Flex.module.css';
+
+type Breakpoint = 'base' | 'sm' | 'md' | 'lg' | 'xl';
+
+export type Responsive<T> = T | { [key in Breakpoint]?: T };
+
+type Direction = 'row' | 'column' | 'row-reverse' | 'column-reverse';
+type Align = 'start' | 'center' | 'end' | 'baseline' | 'stretch';
+type Justify = 'start' | 'center' | 'end' | 'between' | 'around' | 'evenly';
 
 export type FlexProps<T extends ElementType> = {
   children: ReactNode;
-  direction?: 'row' | 'column';
-  align?: 'start' | 'center' | 'end' | 'baseline' | 'stretch';
-  justify?: 'start' | 'center' | 'end' | 'between' | 'around' | 'evenly';
-  gap?: number | string;
-  wrap?: boolean;
+  direction?: Responsive<Direction>;
+  align?: Responsive<Align>;
+  justify?: Responsive<Justify>;
+  gap?: Responsive<number | string>;
+  wrap?: Responsive<boolean>;
   fullWidth?: boolean;
   as?: T;
 } & ComponentPropsWithoutRef<T>;
+
+const BREAKPOINTS: Breakpoint[] = ['base', 'sm', 'md', 'lg', 'xl'];
+
+function getResponsiveValue<T>(val: Responsive<T> | undefined, bp: Breakpoint): T | undefined {
+  if (val === undefined) return undefined;
+  if (typeof val === 'object' && val !== null && !Array.isArray(val)) {
+    return (val as Record<string, T>)[bp];
+  }
+  return bp === 'base' ? (val as T) : undefined;
+}
+
+const ALIGN_MAP: Record<Align, string> = {
+  start: 'flex-start',
+  center: 'center',
+  end: 'flex-end',
+  baseline: 'baseline',
+  stretch: 'stretch',
+};
+
+const JUSTIFY_MAP: Record<Justify, string> = {
+  start: 'flex-start',
+  center: 'center',
+  end: 'flex-end',
+  between: 'space-between',
+  around: 'space-around',
+  evenly: 'space-evenly',
+};
 
 export function Flex<T extends ElementType = 'div'>({
   children,
@@ -26,22 +61,30 @@ export function Flex<T extends ElementType = 'div'>({
   ...props
 }: FlexProps<T>) {
   const Component = as || 'div';
-  const classes = [
-    styles.flex,
-    styles[`direction-${direction}`],
-    styles[`align-${align}`],
-    styles[`justify-${justify}`],
-    wrap && styles.wrap,
-    fullWidth && styles.fullWidth,
-    className,
-  ]
-    .filter(Boolean)
-    .join(' ');
 
-  const combinedStyle = {
-    ...(gap ? { gap: typeof gap === 'number' ? `var(--spacing-${gap})` : gap } : {}),
-    ...style,
-  };
+  const classes = [styles.flex, fullWidth && styles.fullWidth, className].filter(Boolean).join(' ');
+
+  const cssVars: Record<string, string> = {};
+
+  BREAKPOINTS.forEach((bp) => {
+    const bpDir = getResponsiveValue(direction, bp);
+    if (bpDir !== undefined) cssVars[`--dir-${bp}`] = bpDir;
+
+    const bpAlign = getResponsiveValue(align, bp);
+    if (bpAlign !== undefined) cssVars[`--align-${bp}`] = ALIGN_MAP[bpAlign];
+
+    const bpJustify = getResponsiveValue(justify, bp);
+    if (bpJustify !== undefined) cssVars[`--just-${bp}`] = JUSTIFY_MAP[bpJustify];
+
+    const bpGap = getResponsiveValue(gap, bp);
+    if (bpGap !== undefined)
+      cssVars[`--gap-${bp}`] = typeof bpGap === 'number' ? `var(--spacing-${bpGap})` : bpGap;
+
+    const bpWrap = getResponsiveValue(wrap, bp);
+    if (bpWrap !== undefined) cssVars[`--wrap-${bp}`] = bpWrap ? 'wrap' : 'nowrap';
+  });
+
+  const combinedStyle = { ...cssVars, ...style } as CSSProperties;
 
   return (
     <Component className={classes} style={combinedStyle} {...props}>
