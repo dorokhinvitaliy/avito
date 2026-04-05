@@ -2,6 +2,8 @@ export * from './BackLink';
 export * from './Button';
 export * from './Card';
 export * from './Checkbox';
+export * from './DiffModal';
+export * from './DiffViewer';
 export * from './ErrorBlock';
 export * from './Flex';
 export * from './Grid';

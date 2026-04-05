@@ -1,4 +1,4 @@
-# 🚀 Avito Classifieds Dashboard
+# Avito Dashboard
 
 Современный личный кабинет продавца для управления объявлениями с интегрированным AI-ассистентом на базе Ollama.
 
@@ -23,6 +23,7 @@
 Выполните команду в корневой директории проекта:
 
 ```bash
+cd avito
 docker compose up --build
 ```
 

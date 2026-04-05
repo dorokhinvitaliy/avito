@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
-import { Button } from '@/shared/ui/Button';
+import { Button } from '../../../shared/ui/Button';
 import { Sparkles, RefreshCw, Loader2 } from 'lucide-react';
 import { AiTooltip } from './AiTooltip';
 import { generateDescription } from '../api/ollamaApi';
@@ -119,6 +119,7 @@ export function AiDescriptionButton({
       <Button
         type="button"
         variant="ai"
+        size='sm'
         onClick={handleClick}
         disabled={state === 'loading'}
         icon={getButtonIcon()}
@@ -129,6 +130,7 @@ export function AiDescriptionButton({
         {showTooltip && (
           <AiTooltip
             content={result}
+            oldContent={currentDescription}
             isError={state === 'error'}
             onApply={handleApply}
             onClose={handleClose}

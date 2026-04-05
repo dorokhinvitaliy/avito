@@ -1,8 +1,34 @@
+.layoutWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  gap: 0;
+  transition: gap var(--transition-slow);
+}
+
 .page {
-  max-width: 900px;
+  flex: 0 1 900px; /* Allow shrinking but limit max size */
+  width: 100%;
   margin: 0 auto;
   padding: var(--spacing-8) var(--spacing-6);
   animation: fadeIn var(--transition-slow) ease;
+  transition: all var(--transition-slow);
+}
+
+@media (min-width: 800px) {
+  .layoutWrapper {
+    /* Balance the layout when sidebar might be present */
+    padding-left: var(--spacing-4);
+    padding-right: var(--spacing-4);
+  }
+  
+  .page {
+    /* On desktop, we want it perfectly centered when sidebar is width: 0 */
+    /* When sidebar has width, it will naturally push from the right inside the flex container */
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .backLink {

@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 
 interface AiTooltipProps {
   content: string;
+  oldContent?: string;
   isError?: boolean;
   onApply?: () => void;
   onClose: () => void;
@@ -14,6 +15,7 @@ interface AiTooltipProps {
 
 export function AiTooltip({
   content,
+  oldContent,
   isError,
   onApply,
   onClose,
@@ -43,7 +45,11 @@ export function AiTooltip({
       const overflow = rect.right - viewportWidth + 12; // 12px padding from edge
       tooltip.style.left = `-${overflow}px`;
     }
-  }, [content]);
+    if (oldContent && content !== oldContent) {
+      // Optional: Log or track content improvement
+      console.log('AI improved content available');
+    }
+  }, [content, oldContent]);
 
   const positionClass = styles.tooltipBottom;
 

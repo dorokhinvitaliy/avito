@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
-import { Button } from '@/shared/ui/Button';
+import { Button } from '../../../shared/ui/Button';
 import { Sparkles, RefreshCw, Loader2 } from 'lucide-react';
 import { AiTooltip } from './AiTooltip';
 import { suggestMarketPrice } from '../api/ollamaApi';
@@ -117,6 +117,7 @@ export function AiPriceButton({ title, category, params, onApply }: AiPriceButto
       <Button
         type="button"
         variant="ai"
+        size="sm"
         onClick={handleClick}
         disabled={state === 'loading'}
         icon={getButtonIcon()}
