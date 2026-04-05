@@ -35,6 +35,11 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       };
 
       adjustHeight();
+      window.addEventListener('resize', adjustHeight);
+      
+      return () => {
+        window.removeEventListener('resize', adjustHeight);
+      };
     }, [rest.value]);
 
     const id = rest.id || generatedId;

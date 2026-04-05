@@ -5,7 +5,6 @@
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
-  margin-bottom: var(--spacing-5);
   padding: var(--spacing-2);
   border-radius: var(--radius-lg);
   transition: all var(--transition-fast);

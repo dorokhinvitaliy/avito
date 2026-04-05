@@ -28,7 +28,7 @@ export function AiChatInput({
     const textarea = textareaRef.current;
     if (textarea) {
       textarea.style.height = 'auto';
-      const newHeight = Math.min(textarea.scrollHeight, 200);
+      const newHeight = Math.min(textarea.scrollHeight, 400);
       textarea.style.height = `${newHeight}px`;
     }
   }, [textareaRef]);
