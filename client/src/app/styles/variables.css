@@ -143,3 +143,69 @@
   --sidebar-width: 260px;
   --header-height: 64px;
 }
+
+[data-theme='dark'] {
+  --color-bg-primary: #0f1011;
+  --color-bg-secondary: #17181a;
+  --color-bg-elevated: #1e2023;
+  --color-bg-muted: #24272a;
+  --color-bg-hover: #2a2d32;
+  --color-bg-active: #32363b;
+  --color-bg-warning: #29241a;
+  --color-bg-error: #2a1b1b;
+  --color-bg-success: #172a1e;
+  --color-field-bg: #1c1e22;
+
+  --color-text-primary: #f2f3f5;
+  --color-text-secondary: #9ea3ae;
+  --color-text-tertiary: #6b7280;
+  --color-text-inverse: #0f1011;
+
+  --color-border: #2a2d32;
+  --color-border-hover: #3d424b;
+  --color-border-focus: #5c95ff;
+  --color-border-error: #f87171;
+  --color-border-warning: #fbbf24;
+
+  --color-accent-blue: #5c95ff;
+  --color-accent-blue-hover: #7baaff;
+  --color-accent-blue-active: #4a80e0;
+  
+  --color-badge-auto: #1e293b;
+  --color-badge-auto-text: #60a5fa;
+  --color-badge-electronics: #164e63;
+  --color-badge-electronics-text: #22d3ee;
+  --color-badge-real-estate: #451a03;
+  --color-badge-real-estate-text: #fbbf24;
+
+  --color-skeleton: #24272a;
+  --color-skeleton-shine: #2d3136;
+
+  --color-black: #ffffff;
+  --color-accent-green-avito: #10b981;
+  --color-warning-text: #f59e0b;
+  --color-error-hover: #ef4444;
+  --color-bg-subtle: #1c1e22;
+
+  --color-overlay-xs: rgba(255, 255, 255, 0.05);
+  --color-overlay-sm: rgba(255, 255, 255, 0.1);
+  --color-overlay-md: rgba(0, 0, 0, 0.6);
+  --color-overlay-lg: rgba(0, 0, 0, 0.85);
+
+  --color-ai-bg: rgba(245, 158, 11, 0.12);
+  --color-ai-border: rgba(245, 158, 11, 0.25);
+  --color-ai-shadow: rgba(0, 0, 0, 0.4);
+
+  --color-input-focus-bg: #1e2023;
+  --color-input-focus-border: rgba(92, 149, 255, 0.4);
+  --color-input-focus-shadow: rgba(92, 149, 255, 0.15);
+
+  --color-glass-bg: rgba(23, 24, 26, 0.85);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.5);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.25);
+  --shadow-input: 0 0 0 1px var(--color-border);
+}
